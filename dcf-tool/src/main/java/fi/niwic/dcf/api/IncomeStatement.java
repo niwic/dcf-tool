@@ -33,7 +33,7 @@ public interface IncomeStatement {
 	
 	public long getNetIncome();
 	
-	public void setDividends(long dividends);
-	public long getDividends();
+	public void setDividendCosts(long dividends);
+	public long getDividendCosts();
 	
 }
