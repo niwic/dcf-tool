@@ -1,7 +1,7 @@
 package fi.niwic.dcf.api;
 
 /**
- * Rajapinta kuvaa yrityksen tuloslaskelmaa
+ * Rajapinta kuvaa yrityksen yhden tilikauden tuloslaskelmaa
  * 
  * @author Nic Wichmann
  */
