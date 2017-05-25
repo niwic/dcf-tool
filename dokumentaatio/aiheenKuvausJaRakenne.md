@@ -4,7 +4,7 @@ Käyttäjä lisää tiedot muutamasta vanhasta tilinpäätöksestä, ja tekee ar
 
 **Käyttäjät:** Kuka vaan
 
-### Toiminnot:
+### Toiminnot
 - Aloita uusi analyysi
 - Lisää WACC laskentaan vaaditut arvot
 - Lisää tilikausi
@@ -13,6 +13,9 @@ Käyttäjä lisää tiedot muutamasta vanhasta tilinpäätöksestä, ja tekee ar
 - Muokkaa osakkeiden lukumäärää
 - Suorita laskenta
 
-### Linkkejä:
+### Linkkejä
 - https://en.wikipedia.org/wiki/Discounted_cash_flow
 - https://en.wikipedia.org/wiki/Weighted_average_cost_of_capital
+
+### Luokkakaavio
+![Luokkakaavio](img/Luokkakaavio.png)
