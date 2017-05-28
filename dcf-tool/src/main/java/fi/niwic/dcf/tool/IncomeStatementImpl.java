@@ -122,4 +122,9 @@ public class IncomeStatementImpl implements IncomeStatement {
 		return dividendCosts;
 	}
 	
+	@Override
+	public double getRealizedTaxRate() {
+		return (double) getTaxCosts() / getEBT();
+	}
+	
 }

@@ -137,4 +137,10 @@ public interface IncomeStatement {
 	 */
 	public long getDividendCosts();
 	
+	/**
+	 * Tilikauden toteutunut veroprosentti
+	 * @return toteutunut veroprosentti
+	 */
+	public double getRealizedTaxRate();
+	
 }

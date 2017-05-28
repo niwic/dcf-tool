@@ -212,4 +212,36 @@ public class IncomeStatementImplTest {
 		incomeStatement.getNetIncome();
 	}
 	
+	@Test
+	public void checkRealizedTaxRate() {
+		incomeStatement.setTurnover(100);
+		incomeStatement.setTaxCosts(50);
+		
+		assertEquals(0.5, incomeStatement.getRealizedTaxRate(), 0.01);
+	}
+	
+	@Test
+	public void checkRealizedTaxRateOneThird() {
+		incomeStatement.setTurnover(99);
+		incomeStatement.setTaxCosts(33);
+		
+		assertEquals(0.33, incomeStatement.getRealizedTaxRate(), 0.004);
+	}
+	
+	@Test
+	public void checkRealizedTaxRateMax() {
+		incomeStatement.setTurnover(Long.MAX_VALUE);
+		incomeStatement.setTaxCosts(0);
+		
+		assertEquals(0, incomeStatement.getRealizedTaxRate(), 0);
+	}
+	
+	@Test
+	public void checkRealizedTaxRateMin() {
+		incomeStatement.setTurnover(0);
+		incomeStatement.setTaxCosts(Long.MAX_VALUE);
+		
+		assertEquals(Double.POSITIVE_INFINITY, incomeStatement.getRealizedTaxRate(), 0);
+	}
+	
 }
