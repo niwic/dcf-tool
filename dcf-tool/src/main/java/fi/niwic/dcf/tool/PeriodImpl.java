@@ -8,54 +8,55 @@ import java.util.Optional;
 
 public class PeriodImpl implements Period {
 
-	private int year;
-	private boolean isPrediction;
-	
-	private FinancialStatement financialStatement;
-	private Optional<Period> pastPeriod;
-	
-	public PeriodImpl(int year, boolean isPrediction) {
-		this.year = year;
-		this.isPrediction = isPrediction;
-		this.pastPeriod = Optional.empty();
-	}
-	
-	@Override
-	public int getYear() {
-		return year;
-	}
+    private int year;
+    private boolean isPrediction;
 
-	@Override
-	public boolean isPrediction() {
-		return isPrediction;
-	}
+    private FinancialStatement financialStatement;
+    private Optional<Period> pastPeriod;
 
-	@Override
-	public void setCurrentFinancialStatement(FinancialStatement financialStatement) {
-		this.financialStatement = financialStatement;
-	}
+    public PeriodImpl(int year, boolean isPrediction) {
+        this.year = year;
+        this.isPrediction = isPrediction;
+        this.pastPeriod = Optional.empty();
+    }
 
-	@Override
-	public FinancialStatement getCurrentFinancialStatement() {
-		return financialStatement;
-	}
+    @Override
+    public int getYear() {
+        return year;
+    }
 
-	@Override
-	public void setPastPeriod(Period pastPeriod) throws InvalidPastPeriodException {
-		if (pastPeriod.getYear() != year - 1)
-			throw new InvalidPastPeriodException(pastPeriod.getYear(),year);
-			
-		this.pastPeriod = Optional.of(pastPeriod);
-	}
+    @Override
+    public boolean isPrediction() {
+        return isPrediction;
+    }
 
-	@Override
-	public Optional<Period> getPastPeriod() {
-		return pastPeriod;
-	}
+    @Override
+    public void setCurrentFinancialStatement(FinancialStatement financialStatement) {
+        this.financialStatement = financialStatement;
+    }
 
-	@Override
-	public FreeCashFlowCalculation getFreeCashFlowCalculation() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public FinancialStatement getCurrentFinancialStatement() {
+        return financialStatement;
+    }
+
+    @Override
+    public void setPastPeriod(Period pastPeriod) throws InvalidPastPeriodException {
+        if (pastPeriod.getYear() != year - 1) {
+            throw new InvalidPastPeriodException(pastPeriod.getYear(), year);
+        }
+
+        this.pastPeriod = Optional.of(pastPeriod);
+    }
+
+    @Override
+    public Optional<Period> getPastPeriod() {
+        return pastPeriod;
+    }
+
+    @Override
+    public FreeCashFlowCalculation getFreeCashFlowCalculation() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

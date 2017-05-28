@@ -1,5 +1,7 @@
 package fi.niwic.dcf.api;
 
+import java.util.Optional;
+
 public interface FreeCashFlowCalculation {
 	
 	public long getOperatingProfit();
@@ -14,13 +16,13 @@ public interface FreeCashFlowCalculation {
 	
 	public long getGrossCashFlow();
 	
-	public long getNetWorkingCapital();
-	public long getGrossInvestments();
+	public Optional<Long> getNetWorkingCapitalDelta();
+	public Optional<Long> getGrossInvestments();
 	
-	public long getOperatingFreeCashFlow();
+	public Optional<Long> getOperatingFreeCashFlow();
 	
-	public long getNonOperatingCashFlow();
+	public Optional<Long> getNonOperatingCashFlow();
 	
-	public long getFreeCashFlow();
+	public Optional<Long> getFreeCashFlow();
 	
 }

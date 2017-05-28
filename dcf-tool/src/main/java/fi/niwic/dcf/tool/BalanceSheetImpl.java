@@ -1,6 +1,7 @@
 package fi.niwic.dcf.tool;
 
 import fi.niwic.dcf.api.BalanceSheet;
+import fi.niwic.dcf.api.InvestedCapital;
 
 /**
 * @see BalanceSheet
@@ -159,5 +160,10 @@ public class BalanceSheetImpl implements BalanceSheet {
     public boolean isBalanced() {
         return getTotalEquityAndLiabilities() == getTotalAssets();
     }
+	
+	@Override
+	public InvestedCapital getInvestedCapital() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
     
 }
