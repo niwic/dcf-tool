@@ -163,7 +163,7 @@ public class BalanceSheetImpl implements BalanceSheet {
 	
 	@Override
 	public InvestedCapital getInvestedCapital() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return new InvestedCapitalImpl(this);
 	}
     
 }
