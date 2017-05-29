@@ -1,6 +1,7 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+29.05.2017 | 1.5h   | InvestedCapitalImpl & FreeCashFlowCalculationImpl testejä
 28.05.2017 | 2h     | FreeCashFlowCalculationImpl osittain, lisää InvestedCapital & checkstyle korjauksia
 28.05.2017 | 1h     | IncomeStatementImpl ja osittainen PeriodImpl
 25.05.2017 | 2h     | BalanceSheetImpl, luokkakaavio, readme & raportit
