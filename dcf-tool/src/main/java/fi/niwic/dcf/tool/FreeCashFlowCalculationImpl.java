@@ -35,7 +35,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         long interestCosts = getCurrentIncomeStatement().getInterestCosts();
         double realizedTaxRate = getRealizedTaxRate();
 
-        return (long) (realizedTaxRate * interestCosts);
+        return Math.round(realizedTaxRate * interestCosts);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         long interestIncome = getCurrentIncomeStatement().getInterestIncome();
         double realizedTaxRate = getRealizedTaxRate();
 
-        return (long) (realizedTaxRate * interestIncome);
+        return Math.round(realizedTaxRate * interestIncome);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
                 .getOtherIncomeAndCosts();
         double realizedTaxRate = getRealizedTaxRate();
 
-        return (long) (realizedTaxRate * otherIncomeAndCosts);
+        return Math.round(realizedTaxRate * otherIncomeAndCosts);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     @Override
     public long getGrossCashFlow() {
-        return Math.addExact(getNOPLAT(), getGrossCashFlow());
+        return Math.addExact(getNOPLAT(), getDepreciation());
     }
 
     @Override
