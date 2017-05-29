@@ -68,7 +68,7 @@ public class IncomeStatementImpl implements IncomeStatement {
 
 	@Override
 	public long getEBIT() {
-		return Math.subtractExact(getOperatingProfit(), otherIncomeAndCosts);
+		return Math.addExact(getOperatingProfit(), otherIncomeAndCosts);
 	}
 
 	@Override

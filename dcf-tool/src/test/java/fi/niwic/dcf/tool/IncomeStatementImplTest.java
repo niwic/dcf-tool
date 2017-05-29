@@ -99,30 +99,31 @@ public class IncomeStatementImplTest {
         incomeStatement.setTurnover(200);
         incomeStatement.setCosts(50);
         incomeStatement.setDepreciation(50);
+        incomeStatement.setOtherIncomeAndCosts(100);
 
-        assertEquals(100, incomeStatement.getEBIT());
+        assertEquals(200, incomeStatement.getEBIT());
     }
 
     @Test
     public void checkGetEBITWithMaxValues() {
         incomeStatement.setTurnover(Long.MAX_VALUE);
-        incomeStatement.setOtherIncomeAndCosts(Long.MAX_VALUE);
+        incomeStatement.setDepreciation(Long.MAX_VALUE);
 
         assertEquals(0, incomeStatement.getEBIT());
     }
 
     @Test
-    public void checkGetEBITWithMinValues() {
-        incomeStatement.setTurnover(Long.MIN_VALUE);
+    public void checkGetEBITWithMaxAndMinValues() {
+        incomeStatement.setTurnover(Long.MAX_VALUE);
         incomeStatement.setOtherIncomeAndCosts(Long.MIN_VALUE);
-
-        assertEquals(0, incomeStatement.getEBIT());
+        
+        assertEquals(-1, incomeStatement.getEBIT());
     }
 
     @Test(expected = ArithmeticException.class)
     public void checkGetEBITProfitOverflow() {
         incomeStatement.setTurnover(Long.MAX_VALUE);
-        incomeStatement.setOtherIncomeAndCosts(Long.MIN_VALUE);
+        incomeStatement.setOtherIncomeAndCosts(Long.MAX_VALUE);
 
         incomeStatement.getEBIT();
     }
