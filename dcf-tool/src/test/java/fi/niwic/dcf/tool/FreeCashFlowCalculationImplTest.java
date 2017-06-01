@@ -1,35 +1,14 @@
 package fi.niwic.dcf.tool;
 
-import fi.niwic.dcf.api.BalanceSheet;
-import fi.niwic.dcf.api.FinancialStatement;
-import fi.niwic.dcf.api.IncomeStatement;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 import org.junit.Test;
 
-public class FreeCashFlowCalculationImplTest {
+public class FreeCashFlowCalculationImplTest
+        extends FreeCashFlowCalculationImplTestAbstract {
 
-    private IncomeStatement is;
-    private BalanceSheet bs;
-    private FinancialStatement fs;
-    private Period period;
-    private FreeCashFlowCalculationImpl fcfCalculation;
-   
-    
-    @Before
-    public void setUp() {
-        is = new IncomeStatementImpl();
-        bs = new BalanceSheetImpl();
-        fs = new FinancialStatementImpl(is, bs);
-        period = new PeriodImpl(2017, false);
-        fcfCalculation = new FreeCashFlowCalculationImpl(period);
-        
-        period.setCurrentFinancialStatement(fs);
-    }
-    
     @Test
     public void checkGetOperatingProfit() {
         is.setTurnover(3);
@@ -140,27 +119,6 @@ public class FreeCashFlowCalculationImplTest {
         period.setPastPeriod(past);
         
         assertEquals(0, (long) fcfCalculation.getNetWorkingCapitalDelta().get());
-    }
-    
-    @Test
-    public void checkGetNetWorkingCapitalDelta() throws InvalidPastPeriodException {
-        BalanceSheet bsPast = new BalanceSheetImpl();
-        IncomeStatement isPast = new IncomeStatementImpl();
-        FinancialStatement fsPast = new FinancialStatementImpl(isPast, bsPast);
-        
-        Period past = new PeriodImpl(period.getYear()-1, false);
-        past.setCurrentFinancialStatement(fsPast);
-        period.setPastPeriod(past);
-        
-        bsPast.setNonInterestBearingFinancialAssets(100);
-        bsPast.setInventory(50);
-        bsPast.setShortTermNonInterestBearingLiabilities(75);
-        
-        bs.setNonInterestBearingFinancialAssets(200);
-        bs.setInventory(100);
-        bs.setShortTermNonInterestBearingLiabilities(150);
-        
-        assertEquals(75, (long) fcfCalculation.getNetWorkingCapitalDelta().get());
     }
     
 }

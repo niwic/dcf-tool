@@ -16,6 +16,13 @@ public class BalanceSheetImplTest {
     }
     
     @Test
+    public void checkGetInterestBearingFinancialAssets() {
+        balanceSheet.setInterestBearingFinancialAssets(123);
+        
+        assertEquals(123, balanceSheet.getInterestBearingFinancialAssets());
+    }
+    
+    @Test
     public void checkGetTotalAssets() {
         balanceSheet.setNonInterestBearingFinancialAssets(1);
         balanceSheet.setInterestBearingFinancialAssets(1);

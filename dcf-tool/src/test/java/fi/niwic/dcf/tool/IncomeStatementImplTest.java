@@ -10,9 +10,23 @@ public class IncomeStatementImplTest {
 
     @Before
     public void setUp() {
-        this.incomeStatement = new IncomeStatementImpl();
+        incomeStatement = new IncomeStatementImpl();
     }
 
+    @Test
+    public void checkGetTurnover() {
+        incomeStatement.setTurnover(123);
+        
+        assertEquals(123, incomeStatement.getTurnover());
+    }
+    
+    @Test
+    public void checkGetCosts() {
+        incomeStatement.setCosts(123);
+        
+        assertEquals(123, incomeStatement.getCosts());
+    }
+    
     @Test
     public void checkEBITDAcalculationPositive() {
         incomeStatement.setTurnover(100);
@@ -212,6 +226,13 @@ public class IncomeStatementImplTest {
 
         incomeStatement.getNetIncome();
     }
+    
+    @Test
+    public void checkGetDividendCosts() {
+        incomeStatement.setDividendCosts(123);
+        
+        assertEquals(123, incomeStatement.getDividendCosts());
+    }
 
     @Test
     public void checkRealizedTaxRate() {
@@ -244,5 +265,5 @@ public class IncomeStatementImplTest {
 
         assertEquals(Double.POSITIVE_INFINITY, incomeStatement.getRealizedTaxRate(), 0);
     }
-
+    
 }

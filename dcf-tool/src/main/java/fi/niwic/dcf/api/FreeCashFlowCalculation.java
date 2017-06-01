@@ -21,7 +21,7 @@ public interface FreeCashFlowCalculation {
 	
 	public Optional<Long> getOperatingFreeCashFlow();
 	
-	public Optional<Long> getNonOperatingCashFlow();
+	public Long getNonOperatingCashFlow();
 	
 	public Optional<Long> getFreeCashFlow();
 	

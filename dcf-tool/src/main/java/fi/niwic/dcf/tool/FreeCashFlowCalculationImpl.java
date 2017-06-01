@@ -4,7 +4,6 @@ import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.IncomeStatement;
-import fi.niwic.dcf.api.InvestedCapital;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
@@ -18,16 +17,12 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     @Override
     public long getOperatingProfit() {
-        return period.getCurrentFinancialStatement()
-                .getIncomeStatement()
-                .getOperatingProfit();
+        return period.getCurrentFinancialStatement().getIncomeStatement().getOperatingProfit();
     }
 
     @Override
     public long getTaxCosts() {
-        return period.getCurrentFinancialStatement()
-                .getIncomeStatement()
-                .getTaxCosts();
+        return period.getCurrentFinancialStatement().getIncomeStatement().getTaxCosts();
     }
 
     @Override
@@ -48,8 +43,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     @Override
     public long getOtherPostsTaxEffect() {
-        long otherIncomeAndCosts = getCurrentIncomeStatement()
-                .getOtherIncomeAndCosts();
+        long otherIncomeAndCosts = getCurrentIncomeStatement().getOtherIncomeAndCosts();
         double realizedTaxRate = getRealizedTaxRate();
 
         return Math.round(realizedTaxRate * otherIncomeAndCosts);
@@ -84,49 +78,112 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     @Override
     public Optional<Long> getNetWorkingCapitalDelta() {
-        long currentNOC = getCurrentBalanceSheet()
-                .getInvestedCapital()
-                .getNetOperatingCapital();
 
-        Optional<Long> previous = getPreviousBalanceSheet()
-                .map(BalanceSheet::getInvestedCapital)
-                .map(InvestedCapital::getNetOperatingCapital);
-
-        Optional<Long> result = previous.map(previousNOC
-                -> Math.subtractExact(currentNOC, previousNOC)
-        );
+        Optional<BalanceSheet> previousBS = getPreviousBalanceSheet();
+        Optional<Long> result = previousBS.map(this::getNetWorkingCapitalDelta);
 
         return result;
     }
 
+    private long getNetWorkingCapitalDelta(BalanceSheet previousBS) {
+
+        long previousNOC = previousBS.getInvestedCapital().getNetOperatingCapital();
+        long currentNOC = getCurrentBalanceSheet().getInvestedCapital().getNetOperatingCapital();
+
+        return Math.subtractExact(currentNOC, previousNOC);
+
+    }
+
     @Override
     public Optional<Long> getGrossInvestments() {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        Optional<BalanceSheet> previousBS = getPreviousBalanceSheet();
+        Optional<Long> result = previousBS.map(this::getGrossInvestments);
+
+        return result;
+    }
+
+    private long getGrossInvestments(BalanceSheet previousBS) {
+
+        long previousLT = previousBS.getInvestedCapital().getLongTermAssets();
+        long currentLT = getCurrentBalanceSheet().getInvestedCapital().getLongTermAssets();
+        long currentDepr = getCurrentIncomeStatement().getDepreciation();
+
+        long items[] = {
+            previousLT,
+            Math.negateExact(currentLT),
+            Math.negateExact(currentDepr)
+        };
+
+        long sum = 0;
+        for (long item : items) {
+            sum = Math.addExact(sum, item);
+        }
+
+        return sum;
+
     }
 
     @Override
     public Optional<Long> getOperatingFreeCashFlow() {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        Optional<BalanceSheet> previousBS = getPreviousBalanceSheet();
+        Optional<Long> result = previousBS.map(this::getOperatingFreeCashFlow);
+
+        return result;
+    }
+
+    private long getOperatingFreeCashFlow(BalanceSheet previousBS) {
+        long items[] = {
+            getGrossCashFlow(),
+            Math.negateExact(getNetWorkingCapitalDelta(previousBS)),
+            Math.negateExact(getGrossInvestments(previousBS))
+        };
+
+        long sum = 0;
+        for (long item : items) {
+            sum = Math.addExact(sum, item);
+        }
+
+        return sum;
     }
 
     @Override
-    public Optional<Long> getNonOperatingCashFlow() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Long getNonOperatingCashFlow() {
+        long otherIncomeAndCosts = getCurrentIncomeStatement().getOtherIncomeAndCosts();
+        double realizedTaxRate = getRealizedTaxRate();
+
+        return Math.round((1 - realizedTaxRate) * otherIncomeAndCosts);
     }
 
     @Override
     public Optional<Long> getFreeCashFlow() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Optional<BalanceSheet> previousBS = getPreviousBalanceSheet();
+        Optional<Long> result = previousBS.map(this::getFreeCashFlow);
+        
+        return result;
+    }
+    
+    private long getFreeCashFlow(BalanceSheet previousBS) {
+        long items[] = {
+            getOperatingFreeCashFlow(previousBS),
+            getNonOperatingCashFlow()
+        };
+        
+        long sum = 0;
+        for (long item : items) {
+            sum = Math.addExact(sum, item);
+        }
+        
+        return sum;
     }
 
     private IncomeStatement getCurrentIncomeStatement() {
-        return period.getCurrentFinancialStatement()
-                .getIncomeStatement();
+        return period.getCurrentFinancialStatement().getIncomeStatement();
     }
 
     private BalanceSheet getCurrentBalanceSheet() {
-        return period.getCurrentFinancialStatement()
-                .getBalanceSheet();
+        return period.getCurrentFinancialStatement().getBalanceSheet();
     }
 
     private Optional<BalanceSheet> getPreviousBalanceSheet() {
@@ -136,9 +193,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     }
 
     private double getRealizedTaxRate() {
-        return period.getCurrentFinancialStatement()
-                .getIncomeStatement()
-                .getRealizedTaxRate();
+        return period.getCurrentFinancialStatement().getIncomeStatement().getRealizedTaxRate();
     }
 
 }

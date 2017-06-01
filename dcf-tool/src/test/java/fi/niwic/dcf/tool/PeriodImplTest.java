@@ -1,5 +1,6 @@
 package fi.niwic.dcf.tool;
 
+import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
@@ -58,5 +59,12 @@ public class PeriodImplTest {
 	public void checkInvalidPastPeriodNull() throws InvalidPastPeriodException {
 		period.setPastPeriod(null);
 	}
+    
+    @Test
+    public void checkGetFreeCashFlowCalculation() {
+        FreeCashFlowCalculation fcfc = period.getFreeCashFlowCalculation();
+        
+        assertEquals(Optional.empty(), fcfc.getFreeCashFlow());
+    }
 	
 }

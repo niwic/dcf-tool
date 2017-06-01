@@ -56,7 +56,7 @@ public class PeriodImpl implements Period {
 
     @Override
     public FreeCashFlowCalculation getFreeCashFlowCalculation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new FreeCashFlowCalculationImpl(this);
     }
 
 }
