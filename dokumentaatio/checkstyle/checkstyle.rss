@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 15,
+      <title>File: 20,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -130,6 +130,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.niwic.dcf.ui.Main.java">fi/niwic/dcf/ui/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.niwic.dcf.api.InvalidPastPeriodException.java">fi/niwic/dcf/api/InvalidPastPeriodException.java</a>
                 </td>
                 <td>
@@ -159,6 +173,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.niwic.dcf.tool.FinancialStatementImpl.java">fi/niwic/dcf/tool/FinancialStatementImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.niwic.dcf.tool.Sum.java">fi/niwic/dcf/tool/Sum.java</a>
                 </td>
                 <td>
                   0
@@ -214,6 +242,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#fi.niwic.dcf.ui.StartScene.java">fi/niwic/dcf/ui/StartScene.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.niwic.dcf.ui.UI.java">fi/niwic/dcf/ui/UI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#fi.niwic.dcf.api.CostOfCapital.java">fi/niwic/dcf/api/CostOfCapital.java</a>
                 </td>
                 <td>
@@ -243,6 +299,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.niwic.dcf.tool.PeriodImpl.java">fi/niwic/dcf/tool/PeriodImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.niwic.dcf.ui.MainScene.java">fi/niwic/dcf/ui/MainScene.java</a>
                 </td>
                 <td>
                   0

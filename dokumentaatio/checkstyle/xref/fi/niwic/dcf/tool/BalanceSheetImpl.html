@@ -156,25 +156,20 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>             currentProfitOrLoss
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         };
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">long</strong> sum = 0;
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> n = 0; n &lt; items.length; n++) {
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>             sum = Math.addExact(sum, items[n]);
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         }
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>         
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">return</strong> sum;
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">return</strong> Sum.ofItems(items);
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     }
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> 
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>     @Override
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isBalanced() {
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">return</strong> getTotalEquityAndLiabilities() == getTotalAssets();
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> 
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>     @Override
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isBalanced() {
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">return</strong> getTotalEquityAndLiabilities() == getTotalAssets();
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     }
-<a class="jxr_linenumber" name="L163" href="#L163">163</a> 	
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> 	@Override
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> 	<strong class="jxr_keyword">public</strong> <a href="../../../../fi/niwic/dcf/api/InvestedCapital.html">InvestedCapital</a> getInvestedCapital() {
-<a class="jxr_linenumber" name="L166" href="#L166">166</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../fi/niwic/dcf/tool/InvestedCapitalImpl.html">InvestedCapitalImpl</a>(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L167" href="#L167">167</a> 	}
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> }
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> 	
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 	@Override
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> 	<strong class="jxr_keyword">public</strong> <a href="../../../../fi/niwic/dcf/api/InvestedCapital.html">InvestedCapital</a> getInvestedCapital() {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../fi/niwic/dcf/tool/InvestedCapitalImpl.html">InvestedCapitalImpl</a>(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a> 	}
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     
+<a class="jxr_linenumber" name="L164" href="#L164">164</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2017. All rights reserved.</div>

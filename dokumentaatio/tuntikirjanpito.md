@@ -1,8 +1,9 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
-04.05.2017 | 2h     | Käyttöliittymän alku
-01.05.2017 | 1.5h   | FreeCashFlowCalculationImpl, luokkakaavio, checkstyle & pit
+08.06.2017 | 0.5h   | Deadline 4 asioita
+04.06.2017 | 2h     | Käyttöliittymän alku
+01.06.2017 | 1.5h   | FreeCashFlowCalculationImpl, luokkakaavio, checkstyle & pit
 29.05.2017 | 1.5h   | InvestedCapitalImpl & FreeCashFlowCalculationImpl testejä
 28.05.2017 | 2h     | FreeCashFlowCalculationImpl osittain, lisää InvestedCapital & checkstyle korjauksia
 28.05.2017 | 1h     | IncomeStatementImpl ja osittainen PeriodImpl
