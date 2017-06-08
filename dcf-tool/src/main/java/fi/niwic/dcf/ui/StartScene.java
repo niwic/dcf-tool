@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 public class StartScene {
 
-    private static String CompanyName = "Company name:";
-    private static String FirstYear = "First year:";
+    private static final String COMPANY_NAME = "Company name:";
+    private static final String FIRST_YEAR = "First year:";
     
     private Stage stage;
     private MainScene mainScene;
@@ -31,8 +31,8 @@ public class StartScene {
     
     private void initialize() {
         initializeGrid();
-        companyName = createInput(CompanyName, 0, 0);
-        startYear = createInput(FirstYear, 0, 1);
+        companyName = createInput(COMPANY_NAME, 0, 0);
+        startYear = createInput(FIRST_YEAR, 0, 1);
         errorLabel = createLabel("", 0, 2);
         createStartButton();
     }
@@ -55,9 +55,7 @@ public class StartScene {
     
     private void onStartButton(ActionEvent e) {
         try {
-            stage.setScene(
-                    mainScene.render(
-                            companyName.getText(),
+            stage.setScene(mainScene.render(companyName.getText(),
                             Integer.parseInt(startYear.getText())
                     )
             );

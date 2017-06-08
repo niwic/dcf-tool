@@ -148,12 +148,7 @@ public class BalanceSheetImpl implements BalanceSheet {
             currentProfitOrLoss
         };
         
-        long sum = 0;
-        for (int n = 0; n < items.length; n++) {
-            sum = Math.addExact(sum, items[n]);
-        }
-        
-        return sum;
+        return Sum.ofItems(items);
     }
 
     @Override

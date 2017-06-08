@@ -2,6 +2,9 @@ package fi.niwic.dcf.api;
 
 import java.util.Optional;
 
+/**
+ * Yhdistää kaikki elementit jotka kuuluvat tiettyyn tilikauteen.
+ */
 public interface Period {
 	
 	public int getYear();

@@ -2,6 +2,9 @@ package fi.niwic.dcf.api;
 
 import java.util.Optional;
 
+/**
+ * Laskelma jakson vapaasta kassavirrasta.
+ */
 public interface FreeCashFlowCalculation {
 	
 	public long getOperatingProfit();

@@ -7,6 +7,9 @@ import fi.niwic.dcf.api.IncomeStatement;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
+/**
+* @see FreeCashFlowCalculation
+*/
 public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     private Period period;
@@ -115,12 +118,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
             Math.negateExact(currentDepr)
         };
 
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-
-        return sum;
+        return Sum.ofItems(items);
 
     }
 
@@ -140,12 +138,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
             Math.negateExact(getGrossInvestments(previousBS))
         };
 
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-
-        return sum;
+        return Sum.ofItems(items);
     }
 
     @Override
@@ -170,12 +163,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
             getNonOperatingCashFlow()
         };
         
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-        
-        return sum;
+        return Sum.ofItems(items);
     }
 
     private IncomeStatement getCurrentIncomeStatement() {

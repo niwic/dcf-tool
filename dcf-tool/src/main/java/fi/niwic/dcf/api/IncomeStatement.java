@@ -1,38 +1,40 @@
 package fi.niwic.dcf.api;
 
 /**
- * Rajapinta kuvaa yrityksen yhden tilikauden tuloslaskelmaa
- * 
- * @author Nic Wichmann
+ * Yrityksen yhden tilikauden tuloslaskelma.
  */
 public interface IncomeStatement {
 	
 	/**
-	 * Tilikauden liikevaihto
+	 * Tilikauden liikevaihto.
+     * 
 	 * @param turnover liikevaito
 	 */
 	public void setTurnover(long turnover);
 	
 	/**
-	 * Tilikauden liikevaihto
+	 * Tilikauden liikevaihto.
+     * 
 	 * @return liikevaihto
 	 */
 	public long getTurnover();
 	
 	/**
-	 * Tilikauden kustannukset
+	 * Tilikauden kustannukset.
+     * 
 	 * @param costs kustannukset
 	 */
 	public void setCosts(long costs);
 	
 	/**
-	 * Tilikauden kustannukset
+	 * Tilikauden kustannukset.
+     * 
 	 * @return kustannukset
 	 */
 	public long getCosts();
 	
 	/**
-	 * Tilikauden tulos ennen korkoja, veroja ja poistoja
+	 * Tilikauden tulos ennen korkoja, veroja ja poistoja.
 	 * EBITDA: Earnings Before Interest Tax Depreciation and Amortization
 	 * 
 	 * @return Tulos ennen korkoja, veroja ja poistoja
@@ -40,37 +42,43 @@ public interface IncomeStatement {
 	public long getEBITDA();
 	
 	/**
-	 * Tilikauden poistot
+	 * Tilikauden poistot.
+     * 
 	 * @param depreciation poistot
 	 */
 	public void setDepreciation(long depreciation);
 	
 	/**
-	 * Tilikauden poistot
+	 * Tilikauden poistot.
+     * 
 	 * @return poistot
 	 */
 	public long getDepreciation();
 	
 	/**
-	 * Tilikauden toiminnallinen tulos / liikevoitto
+	 * Tilikauden toiminnallinen tulos / liikevoitto.
+     * 
 	 * @return toiminnallinen tulos (EBITDA - poistot)
 	 */
 	public long getOperatingProfit();
 	
 	/**
-	 * Tilikauden muut tulot ja kustannukset
+	 * Tilikauden muut tulot ja kustannukset.
+     * 
 	 * @param otherIncomeAndCosts muut tulot ja kustannukset
 	 */
 	public void setOtherIncomeAndCosts(long otherIncomeAndCosts);
 	
 	/**
-	 * Tilikauden muut tulot ja kustannukset
+	 * Tilikauden muut tulot ja kustannukset.
+     * 
 	 * @return muut tulot ja kustannukset
 	 */
 	public long getOtherIncomeAndCosts();
 	
 	/**
-	 * Tilikauden tulos ennen korkoja ja veroja
+	 * Tilikauden tulos ennen korkoja ja veroja.
+     * 
 	 * EBIT: Earnings Before Interest and Tax
 	 * 
 	 * @return tulos ennen korkoja ja veroja
@@ -78,67 +86,78 @@ public interface IncomeStatement {
 	public long getEBIT();
 	
 	/**
-	 * Tilikauden korkotuotot
+	 * Tilikauden korkotuotot.
+     * 
 	 * @param interestIncome korkotuotot
 	 */
 	public void setInterestIncome(long interestIncome);
 	
 	/**
-	 * Tilikauden korkotuotot
+	 * Tilikauden korkotuotot.
+     * 
 	 * @return korkotuotot
 	 */
 	public long getInterestIncome();
 	
 	/**
-	 * Tilikauden korkokustannukset
+	 * Tilikauden korkokustannukset.
+     * 
 	 * @param interestCosts korkokustannukset
 	 */
 	public void setInterestCosts(long interestCosts);
 	
 	/**
-	 * Tilikauden korkokustannukset
+	 * Tilikauden korkokustannukset.
+     * 
 	 * @return korkokustannukset
 	 */
 	public long getInterestCosts();
 	
 	/**
-	 * Tilikauden tulos ennen veroja
+	 * Tilikauden tulos ennen veroja.
+     * 
 	 * @return tulos ennen veroja
 	 */
 	public long getEBT();
 	
 	/**
-	 * Tilikauden verokustannukset
+	 * Tilikauden verokustannukset.
+     * 
 	 * @param taxCosts verokustannukset
 	 */
 	public void setTaxCosts(long taxCosts);
 	
 	/**
-	 * Tilikauden verokustannukset
+	 * Tilikauden verokustannukset.
+     * 
 	 * @return verokustannukset
 	 */
 	public long getTaxCosts();
 	
 	/**
-	 * Tilikauden tulos
+	 * Tilikauden tulos.
+     * 
 	 * @return tulos
 	 */
 	public long getNetIncome();
 	
 	/**
-	 * Tilikaudella maksetut osingot
+	 * Tilikaudella maksetut osingot.
+     * 
 	 * @param dividends osingot
 	 */
 	public void setDividendCosts(long dividends);
 	
 	/**
-	 * Tilikaudella maksetut osingot
+	 * Tilikaudella maksetut osingot.
+     * 
 	 * @return osingot
 	 */
 	public long getDividendCosts();
 	
 	/**
-	 * Tilikauden toteutunut veroprosentti
+	 * Tilikauden toteutunut veroprosentti.
+     * 
 	 * @return toteutunut veroprosentti
 	 */
 	public double getRealizedTaxRate();

@@ -1,5 +1,8 @@
 package fi.niwic.dcf.api;
 
+/**
+ * Pääomalaskelma.
+ */
 public interface InvestedCapital {
 	
 	public long getNetOperatingCapital();

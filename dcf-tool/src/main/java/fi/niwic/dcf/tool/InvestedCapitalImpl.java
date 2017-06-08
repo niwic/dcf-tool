@@ -3,6 +3,9 @@ package fi.niwic.dcf.tool;
 import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.InvestedCapital;
 
+/**
+* @see InvestedCapital
+*/
 public class InvestedCapitalImpl implements InvestedCapital {
 
     private BalanceSheet bs;
@@ -19,12 +22,7 @@ public class InvestedCapitalImpl implements InvestedCapital {
             Math.negateExact(bs.getShortTermNonInterestBearingLiabilities())
         };
         
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-        
-        return sum;
+        return Sum.ofItems(items);
     }
 
     @Override
@@ -48,12 +46,7 @@ public class InvestedCapitalImpl implements InvestedCapital {
             bs.getCurrentPeriodProfitOrLoss()
         };
         
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-        
-        return sum;
+        return Sum.ofItems(items);
     }
     
 }

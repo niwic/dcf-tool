@@ -1,176 +1,174 @@
 package fi.niwic.dcf.api;
 
 /**
- * Rajapinta kuvaa yrityksen yhden tilikauden tasetta
- *
- * @author Nic Wichmann
+ * Yrityksen yhden tilikauden tase.
  */
 public interface BalanceSheet {
 
     /**
-     * Korolliset aineettomat hyödykkeet
+     * Korolliset aineettomat hyödykkeet.
      *
      * @param amount Korolliset aineettomat hyödykkeet
      */
     public void setNonInterestBearingFinancialAssets(long amount);
 
     /**
-     * Korolliset aineettomat hyödykkeet
+     * Korolliset aineettomat hyödykkeet.
      *
      * @return Korolliset aineettomat hyödykkeet
      */
     public long getNonInterestBearingFinancialAssets();
 
     /**
-     * Korottomat aineettomat hyödykkeet
+     * Korottomat aineettomat hyödykkeet.
      *
      * @param amount Korottomat aineettomat hyödykkeet
      */
     public void setInterestBearingFinancialAssets(long amount);
 
     /**
-     * Korottomat aineettomat hyödykkeet
+     * Korottomat aineettomat hyödykkeet.
      *
      * @return Korottomat aineettomat hyödykkeet
      */
     public long getInterestBearingFinancialAssets();
 
     /**
-     * Vaihto-omaisuus
+     * Vaihto-omaisuus.
      *
      * @param amount Vaihto-omaisuus
      */
     public void setInventory(long amount);
 
     /**
-     * Vaihto-omaisuus
+     * Vaihto-omaisuus.
      *
      * @return Vaihto-omaisuus
      */
     public long getInventory();
 
     /**
-     * Aineelliset hyödykkeet
+     * Aineelliset hyödykkeet.
      *
      * @param amount Aineelliset hyödykkeet
      */
     public void setFixedAssets(long amount);
 
     /**
-     * Aineelliset hyödykkeet
+     * Aineelliset hyödykkeet.
      *
      * @return Aineelliset hyödykkeet
      */
     public long getFixedAssets();
 
     /**
-     * Vastaavat (aktiivat) yhteensä
+     * Vastaavat (aktiivat) yhteensä.
      *
      * @return vastaavat yhteensä
      */
     public long getTotalAssets();
 
     /**
-     * Lyhytaikaiset korottomat velat
+     * Lyhytaikaiset korottomat velat.
      *
      * @param amount Lyhytaikaiset korottomat velat
      */
     public void setShortTermNonInterestBearingLiabilities(long amount);
 
     /**
-     * Lyhytaikaiset korottomat velat
+     * Lyhytaikaiset korottomat velat.
      *
      * @return Lyhytaikaiset korottomat velat
      */
     public long getShortTermNonInterestBearingLiabilities();
 
     /**
-     * Lyhytaikaiset korolliset velat
+     * Lyhytaikaiset korolliset velat.
      *
      * @param amount Lyhytaikaiset korolliset velat
      */
     public void setShortTermInterestBearingLiabilities(long amount);
 
     /**
-     * Lyhytaikaiset korolliset velat
+     * Lyhytaikaiset korolliset velat.
      *
      * @return Lyhytaikaiset korolliset velat
      */
     public long getShortTermInterestBearingLiabilities();
 
     /**
-     * Pitkäaikaiset korolliset velat
+     * Pitkäaikaiset korolliset velat.
      *
      * @param amount Pitkäaikaiset korolliset velat
      */
     public void setLongTermLiabilities(long amount);
 
     /**
-     * Pitkäaikaiset korolliset velat
+     * Pitkäaikaiset korolliset velat.
      *
      * @return Pitkäaikaiset korolliset velat
      */
     public long getLongTermLiabilities();
 
     /**
-     * Sidottu oma pääoma
+     * Sidottu oma pääoma.
      *
      * @param amount Sidottu oma pääoma
      */
     public void setBoundEquity(long amount);
 
     /**
-     * Sidottu oma pääoma
+     * Sidottu oma pääoma.
      *
      * @return Sidottu oma pääoma
      */
     public long getBoundEquity();
 
     /**
-     * Eddelisten tilikausein voitto/tappio
+     * Eddelisten tilikausein voitto/tappio.
      *
      * @param amount Eddelisten tilikausein voitto/tappio
      */
     public void setPastProfitsOrLoss(long amount);
 
     /**
-     * Eddelisten tilikausein voitto/tappio
+     * Eddelisten tilikausein voitto/tappio.
      *
      * @return Eddelisten tilikausein voitto/tappio
      */
     public long getPastProfitsOrLoss();
 
     /**
-     * Tämän tilikauden voitto/tappio
+     * Tämän tilikauden voitto/tappio.
      *
      * @param amount Tämän tilikauden voitto/tappio
      */
     public void setCurrentPeriodProfitOrLoss(long amount);
 
     /**
-     * Tämän tilikauden voitto/tappio
+     * Tämän tilikauden voitto/tappio.
      *
      * @return Tämän tilikauden voitto/tappio
      */
     public long getCurrentPeriodProfitOrLoss();
 
     /**
-     * Vastattavat (passiivat) yhteensä
+     * Vastattavat (passiivat) yhteensä.
      *
      * @return Vastattavat yhteensä
      */
     public long getTotalEquityAndLiabilities();
 
     /**
-     * Onko tase tasapainossa? Tase on tasapainossa jos Vastaavat ja Vastattavat
-     * ovat yhtä suuret
+     * Onko tase tasapainossa? Tase on tasapainossa jos Vastaavat ja
+     * Vastattavat ovat yhtä suuret.
      *
      * @return tase tasapainossa
      */
     public boolean isBalanced();
 
     /**
-     * Sijoitettu pääoma
+     * Sijoitettu pääoma.
      *
      * @return sijoitettu pääoma
      */
