@@ -1,5 +1,10 @@
 package fi.niwic.dcf.ui;
 
+import fi.niwic.dcf.api.DCFCalculation;
+import fi.niwic.dcf.api.InvalidPastPeriodException;
+import fi.niwic.dcf.api.Period;
+import fi.niwic.dcf.tool.FinancialStatementImpl;
+import fi.niwic.dcf.tool.PeriodImpl;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +20,8 @@ public class StartScene {
     private static final String COMPANY_NAME = "Company name:";
     private static final String FIRST_YEAR = "First year:";
     
+    private DCFCalculation calculation;
+    
     private Stage stage;
     private MainScene mainScene;
     
@@ -23,7 +30,8 @@ public class StartScene {
     private TextField startYear;
     private Label errorLabel;
     
-    public StartScene(Stage stage, MainScene mainScene) {
+    public StartScene(Stage stage, MainScene mainScene, DCFCalculation calculation) {
+        this.calculation = calculation;
         this.mainScene = mainScene;
         this.stage = stage;
         initialize();
@@ -55,12 +63,16 @@ public class StartScene {
     
     private void onStartButton(ActionEvent e) {
         try {
-            stage.setScene(mainScene.render(companyName.getText(),
-                            Integer.parseInt(startYear.getText())
-                    )
-            );
+            int year = Integer.parseInt(startYear.getText());
+            calculation.setCompanyName(companyName.getText());
+            Period period = new PeriodImpl(year, false);
+            period.setCurrentFinancialStatement(new FinancialStatementImpl());
+            calculation.addPeriod(period);
+            stage.setScene(mainScene.scene());
         } catch (NumberFormatException ex) {
             errorLabel.setText("Invalid start year");
+        } catch (InvalidPastPeriodException ex) {
+            errorLabel.setText("Years are not consecutive");
         }
     }
     

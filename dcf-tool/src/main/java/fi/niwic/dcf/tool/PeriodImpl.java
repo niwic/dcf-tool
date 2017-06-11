@@ -24,7 +24,7 @@ public class PeriodImpl implements Period {
     }
 
     @Override
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 

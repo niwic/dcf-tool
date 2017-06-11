@@ -7,7 +7,7 @@ import java.util.Optional;
  */
 public interface Period {
 	
-	public int getYear();
+	public Integer getYear();
 	public boolean isPrediction();
 	
 	public void setCurrentFinancialStatement(FinancialStatement financialStatement);

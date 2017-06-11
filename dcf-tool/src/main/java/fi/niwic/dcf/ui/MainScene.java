@@ -1,5 +1,10 @@
 package fi.niwic.dcf.ui;
 
+import fi.niwic.dcf.api.DCFCalculation;
+import fi.niwic.dcf.api.InvalidPastPeriodException;
+import fi.niwic.dcf.api.Period;
+import fi.niwic.dcf.tool.FinancialStatementImpl;
+import fi.niwic.dcf.tool.PeriodImpl;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,31 +16,36 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class MainScene {
 
-    private int currentYear;
-    private TableView table;
+    private DCFCalculation calculation;
+    private IncomeStatementTable incomeStatementTable;    
     
-    public Scene render(String companyName, int startYear) {
-        currentYear = startYear;
+    private Stage stage;
+    
+    public MainScene(Stage stage, DCFCalculation calculation) {
+        this.stage = stage;
+        this.calculation = calculation;
+        intializeTable();
+    }
+    
+    public Scene scene() {
+        
+        incomeStatementTable.addPeriod(calculation.getHeadPeriod());
         
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
-            createMenuBar(companyName),
-            createTable()
+            createMenuBar(calculation.getCompanyName()),
+            incomeStatementTable.getTable()
         );
         
         return new Scene(vbox);
     }
     
-    private TableView createTable() {
-        table = new TableView();
-        TableColumn headings = new TableColumn();
-        headings.setSortable(false);
-        table.getColumns().add(headings);
-        
-        return table;
+    private void intializeTable() {
+        incomeStatementTable = new IncomeStatementTable();
     }
     
     private HBox createMenuBar(String companyName) {
@@ -72,10 +82,16 @@ public class MainScene {
     }
     
     private void addYear(ActionEvent e) {
-        Integer nextYear = currentYear + 1;
-        TableColumn newYear = new TableColumn(nextYear.toString());
-        currentYear++;
-        table.getColumns().add(newYear);
+        Integer nextYear = calculation.getHeadPeriod().getYear() + 1;
+        Period newPeriod = new PeriodImpl(nextYear, false);
+        newPeriod.setCurrentFinancialStatement(new FinancialStatementImpl());
+        
+        try {
+            calculation.addPeriod(newPeriod);
+            incomeStatementTable.addPeriod(newPeriod);
+        } catch (InvalidPastPeriodException ex) {
+            System.out.println("Näin ei pitäisi tapahtua!");
+        }
     }
     
 }

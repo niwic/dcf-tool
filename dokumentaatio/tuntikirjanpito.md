@@ -1,6 +1,7 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+11.06.2017 | 3h     | Käyttöliittymällä voi lisätä ja muokata tuloslaskelmaa
 08.06.2017 | 0.5h   | Deadline 4 asioita
 04.06.2017 | 2h     | Käyttöliittymän alku
 01.06.2017 | 1.5h   | FreeCashFlowCalculationImpl, luokkakaavio, checkstyle & pit

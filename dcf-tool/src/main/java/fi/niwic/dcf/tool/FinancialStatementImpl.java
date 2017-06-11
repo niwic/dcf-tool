@@ -5,8 +5,8 @@ import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.IncomeStatement;
 
 /**
-* @see FinancialStatement
-*/
+ * @see FinancialStatement
+ */
 public class FinancialStatementImpl implements FinancialStatement {
 
     private IncomeStatement incomeStatement;
@@ -17,6 +17,11 @@ public class FinancialStatementImpl implements FinancialStatement {
 
         this.incomeStatement = incomeStatement;
         this.balanceSheet = balanceSheet;
+    }
+
+    public FinancialStatementImpl() {
+        this.incomeStatement = new IncomeStatementImpl();
+        this.balanceSheet = new BalanceSheetImpl();
     }
 
     @Override

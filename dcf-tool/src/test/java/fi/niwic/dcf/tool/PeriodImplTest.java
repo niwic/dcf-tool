@@ -20,7 +20,7 @@ public class PeriodImplTest {
 	
 	@Test
 	public void checkConstructor() {
-		assertEquals(2017, period.getYear());
+		assertEquals((Integer) 2017, period.getYear());
 		assertFalse(period.isPrediction());
 	}
 	
