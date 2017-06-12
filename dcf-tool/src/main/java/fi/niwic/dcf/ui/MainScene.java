@@ -10,8 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,31 +19,35 @@ import javafx.stage.Stage;
 public class MainScene {
 
     private DCFCalculation calculation;
-    private IncomeStatementTable incomeStatementTable;    
+    private PeriodDataTable incomeStatementTable;
+    private PeriodDataTable balanceSheetTable;
     
     private Stage stage;
     
     public MainScene(Stage stage, DCFCalculation calculation) {
         this.stage = stage;
         this.calculation = calculation;
-        intializeTable();
+        intializeTables();
     }
     
     public Scene scene() {
         
         incomeStatementTable.addPeriod(calculation.getHeadPeriod());
+        balanceSheetTable.addPeriod(calculation.getHeadPeriod());
         
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
             createMenuBar(calculation.getCompanyName()),
-            incomeStatementTable.getTable()
+            incomeStatementTable.getTable(),
+            balanceSheetTable.getTable()
         );
         
         return new Scene(vbox);
     }
     
-    private void intializeTable() {
-        incomeStatementTable = new IncomeStatementTable();
+    private void intializeTables() {
+        incomeStatementTable = new PeriodDataTable(new IncomeStatementViewModel());
+        balanceSheetTable = new PeriodDataTable(new BalanceSheetViewModel());
     }
     
     private HBox createMenuBar(String companyName) {
@@ -89,6 +91,7 @@ public class MainScene {
         try {
             calculation.addPeriod(newPeriod);
             incomeStatementTable.addPeriod(newPeriod);
+            balanceSheetTable.addPeriod(newPeriod);
         } catch (InvalidPastPeriodException ex) {
             System.out.println("Näin ei pitäisi tapahtua!");
         }

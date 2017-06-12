@@ -1,7 +1,6 @@
 package fi.niwic.dcf.ui;
 
 import fi.niwic.dcf.api.Period;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
@@ -9,19 +8,19 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class IncomeStatementTable {
+public class PeriodDataTable {
 
     private TableView table;
     
-    public IncomeStatementTable() {
+    public PeriodDataTable(PeriodViewModel viewModel) {
         createTable();
+        table.setItems(FXCollections.observableArrayList(viewModel.get()));
     }
     
     private TableView createTable() {
         table = new TableView();
         table.setEditable(true);
         initializeHeadings();
-        initializeRows();
         
         return table;
     }
@@ -29,11 +28,6 @@ public class IncomeStatementTable {
     private void initializeHeadings() {
         TableColumn headingColumn = addColumn();
         headingColumn.setCellValueFactory(new HeaderValueFactory());
-    }
-    
-    private void initializeRows() {
-        List<PeriodView> viewModel = IncomeStatementViewModel.get();
-        table.setItems(FXCollections.observableArrayList(viewModel));
     }
     
     private TableColumn addPeriodColumn(Period period) {
@@ -49,7 +43,7 @@ public class IncomeStatementTable {
                         try {
                             Long value = Long.parseLong(ev.getNewValue());
                             ev.getRowValue().getSetter().accept(period, value);
-                            ev.getTableView().refresh();
+                            table.refresh();
                         } catch (NumberFormatException ex) {
                             
                         }

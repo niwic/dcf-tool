@@ -2,9 +2,10 @@ package fi.niwic.dcf.ui;
 
 import java.util.ArrayList;
 
-public class IncomeStatementViewModel {
+public class IncomeStatementViewModel implements PeriodViewModel {
     
-    public static ArrayList<PeriodView> get() {
+    @Override
+    public ArrayList<PeriodView> get() {
         ArrayList<PeriodView> viewModel = new ArrayList();
         
         PeriodView rows[] = {
