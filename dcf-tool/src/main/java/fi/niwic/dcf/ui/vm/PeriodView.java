@@ -1,9 +1,8 @@
-package fi.niwic.dcf.ui;
+package fi.niwic.dcf.ui.vm;
 
 import fi.niwic.dcf.api.Period;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import javafx.beans.property.StringProperty;
 
 public class PeriodView {
 

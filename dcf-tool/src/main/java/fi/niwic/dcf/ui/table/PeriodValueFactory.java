@@ -1,6 +1,7 @@
-package fi.niwic.dcf.ui;
+package fi.niwic.dcf.ui.table;
 
 import fi.niwic.dcf.api.Period;
+import fi.niwic.dcf.ui.vm.PeriodView;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

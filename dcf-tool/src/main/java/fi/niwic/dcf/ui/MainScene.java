@@ -1,15 +1,18 @@
 package fi.niwic.dcf.ui;
 
+import fi.niwic.dcf.ui.table.PeriodDataTable;
 import fi.niwic.dcf.api.DCFCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import fi.niwic.dcf.tool.FinancialStatementImpl;
 import fi.niwic.dcf.tool.PeriodImpl;
+import fi.niwic.dcf.ui.table.PeriodDataTables;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -19,35 +22,35 @@ import javafx.stage.Stage;
 public class MainScene {
 
     private DCFCalculation calculation;
-    private PeriodDataTable incomeStatementTable;
-    private PeriodDataTable balanceSheetTable;
     
+    private PeriodDataTables tables;
+    private VBox layout;
+    private VBox vbox;
     private Stage stage;
     
     public MainScene(Stage stage, DCFCalculation calculation) {
         this.stage = stage;
         this.calculation = calculation;
-        intializeTables();
     }
     
-    public Scene scene() {
+    public void initializeLayout() {
+        vbox = new VBox();
         
-        incomeStatementTable.addPeriod(calculation.getHeadPeriod());
-        balanceSheetTable.addPeriod(calculation.getHeadPeriod());
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(vbox);
         
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll(
-            createMenuBar(calculation.getCompanyName()),
-            incomeStatementTable.getTable(),
-            balanceSheetTable.getTable()
+        layout = new VBox();
+        layout.getChildren().addAll(
+            createMenuBar(calculation.getCompanyName()), sp
         );
-        
-        return new Scene(vbox);
     }
     
     private void intializeTables() {
-        incomeStatementTable = new PeriodDataTable(new IncomeStatementViewModel());
-        balanceSheetTable = new PeriodDataTable(new BalanceSheetViewModel());
+        tables = new PeriodDataTables();
+        for (PeriodDataTable table: tables.getList()) {
+            vbox.getChildren().add(table.getTable());
+        }
+        tables.addPeriod(calculation.getHeadPeriod());
     }
     
     private HBox createMenuBar(String companyName) {
@@ -90,11 +93,16 @@ public class MainScene {
         
         try {
             calculation.addPeriod(newPeriod);
-            incomeStatementTable.addPeriod(newPeriod);
-            balanceSheetTable.addPeriod(newPeriod);
+            tables.addPeriod(newPeriod);
         } catch (InvalidPastPeriodException ex) {
-            System.out.println("Näin ei pitäisi tapahtua!");
+            /* should be impossible */
         }
+    }
+        
+    public Scene scene() {
+        initializeLayout();
+        intializeTables();
+        return new Scene(layout, 900, 700);
     }
     
 }

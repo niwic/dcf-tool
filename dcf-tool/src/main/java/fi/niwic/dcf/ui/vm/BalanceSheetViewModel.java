@@ -1,4 +1,4 @@
-package fi.niwic.dcf.ui;
+package fi.niwic.dcf.ui.vm;
 
 import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.Period;

@@ -1,6 +1,10 @@
-package fi.niwic.dcf.ui;
+package fi.niwic.dcf.ui.table;
 
+import fi.niwic.dcf.ui.vm.PeriodView;
+import fi.niwic.dcf.ui.vm.PeriodViewModel;
 import fi.niwic.dcf.api.Period;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
@@ -10,11 +14,14 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 public class PeriodDataTable {
 
+    private List<PeriodDataTable> dependants;
     private TableView table;
     
     public PeriodDataTable(PeriodViewModel viewModel) {
         createTable();
+        dependants = new ArrayList();
         table.setItems(FXCollections.observableArrayList(viewModel.get()));
+        table.setPrefHeight(25 * (table.getItems().size() + 1.01));
     }
     
     private TableView createTable() {
@@ -28,6 +35,7 @@ public class PeriodDataTable {
     private void initializeHeadings() {
         TableColumn headingColumn = addColumn();
         headingColumn.setCellValueFactory(new HeaderValueFactory());
+        headingColumn.setPrefWidth(300);
     }
     
     private TableColumn addPeriodColumn(Period period) {
@@ -43,7 +51,7 @@ public class PeriodDataTable {
                         try {
                             Long value = Long.parseLong(ev.getNewValue());
                             ev.getRowValue().getSetter().accept(period, value);
-                            table.refresh();
+                            refresh();
                         } catch (NumberFormatException ex) {
                             
                         }
@@ -69,6 +77,17 @@ public class PeriodDataTable {
     
     public void addPeriod(Period period) {
         addPeriodColumn(period);
+    }
+    
+    public void addDependant(PeriodDataTable pdt) {
+        dependants.add(pdt);
+    }
+    
+    public void refresh() {
+        table.refresh();
+        for (PeriodDataTable d: dependants) {
+            d.refresh();
+        }
     }
     
 }
