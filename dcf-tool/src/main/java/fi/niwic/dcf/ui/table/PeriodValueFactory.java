@@ -8,7 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
-public class PeriodValueFactory implements Callback<TableColumn.CellDataFeatures<PeriodView,String>, ObservableValue<String>> {
+public class PeriodValueFactory implements Callback<TableColumn.CellDataFeatures<PeriodView, String>, ObservableValue<String>> {
 
     private Period period;
     

@@ -3,9 +3,6 @@ package fi.niwic.dcf.tool;
 import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.InvestedCapital;
 
-/**
-* @see InvestedCapital
-*/
 public class InvestedCapitalImpl implements InvestedCapital {
 
     private BalanceSheet bs;

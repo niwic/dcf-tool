@@ -62,7 +62,7 @@ public class DCFCalculationImpl implements DCFCalculation {
     }
 
     @Override
-    public void setNumberOfShares() {
+    public void setNumberOfShares(Long shares) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

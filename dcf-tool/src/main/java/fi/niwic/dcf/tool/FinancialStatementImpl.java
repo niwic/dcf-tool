@@ -4,9 +4,6 @@ import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.IncomeStatement;
 
-/**
- * @see FinancialStatement
- */
 public class FinancialStatementImpl implements FinancialStatement {
 
     private IncomeStatement incomeStatement;

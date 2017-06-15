@@ -1,6 +1,7 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+15.06.2017 | 1h     | Sekvenssikaaviot & muut
 14.06.2017 | 1h     | Käyttöliittymällä voi nähdä pääomalaskelman
 11.06.2017 | 0.5h   | Käyttöliittymällä voi muokata tasetta
 11.06.2017 | 3h     | Käyttöliittymällä voi lisätä ja muokata tuloslaskelmaa

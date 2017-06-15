@@ -5,6 +5,10 @@ package fi.niwic.dcf.api;
  */
 public interface CostOfCapital {
 	
+    /**
+     * Palauttaa yrityksen tavoitetun pääomakustannusprosentin.
+     * @return pääomakustannusprosentti
+     */
 	public long getCostOfCapital();
 	
 }

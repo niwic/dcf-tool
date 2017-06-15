@@ -7,9 +7,6 @@ import fi.niwic.dcf.api.IncomeStatement;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
-/**
-* @see FreeCashFlowCalculation
-*/
 public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     private Period period;

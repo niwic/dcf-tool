@@ -14,7 +14,7 @@ public class InvestedCapitalViewModel implements PeriodViewModel {
         PeriodView rows[] = {
             netOperatingCapital, longTermAssets, liabilities, equity
         };
-        
+
         for (PeriodView row : rows) {
             viewModel.add(row);
         }
@@ -25,29 +25,29 @@ public class InvestedCapitalViewModel implements PeriodViewModel {
     private static InvestedCapital investedCapital(Period period) {
         return period.getCurrentFinancialStatement().getBalanceSheet().getInvestedCapital();
     }
-    
+
     private static PeriodView netOperatingCapital = new PeriodView(
-            "Net Operating Capital",
-            period -> investedCapital(period).getNetOperatingCapital(),
-            (period, value) -> {}
+        "Net Operating Capital",
+        period -> investedCapital(period).getNetOperatingCapital(),
+        (period, value) -> { }
     );
-    
+
     private static PeriodView longTermAssets = new PeriodView(
-            "Long term assets",
-            period -> investedCapital(period).getLongTermAssets(),
-            (period, value) -> {}
+        "Long term assets",
+        period -> investedCapital(period).getLongTermAssets(),
+        (period, value) -> { }
     );
-    
+
     private static PeriodView liabilities = new PeriodView(
-            "Liabilities",
-            period -> investedCapital(period).getLiabilities(),
-            (period, value) -> {}
+        "Liabilities",
+        period -> investedCapital(period).getLiabilities(),
+        (period, value) -> { }
     );
-    
+
     private static PeriodView equity = new PeriodView(
-            "Equity",
-            period -> investedCapital(period).getEquity(),
-            (period, value) -> {}
+        "Equity",
+        period -> investedCapital(period).getEquity(),
+        (period, value) -> { }
     );
-    
+
 }

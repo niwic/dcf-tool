@@ -6,9 +6,6 @@ import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
-/**
-* @see Period
-*/
 public class PeriodImpl implements Period {
 
     private int year;

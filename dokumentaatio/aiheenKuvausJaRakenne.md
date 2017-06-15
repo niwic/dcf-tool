@@ -19,3 +19,6 @@ Käyttäjä lisää tiedot muutamasta vanhasta tilinpäätöksestä, ja tekee ar
 
 ### Luokkakaavio
 ![Luokkakaavio](img/Luokkakaavio.png)
+
+### Sekvenssikaaviot
+![Sekvenssikaaviot](img/Sekvenssikaaviot.png)
