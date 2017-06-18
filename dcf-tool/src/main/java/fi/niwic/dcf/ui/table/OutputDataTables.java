@@ -1,5 +1,6 @@
 package fi.niwic.dcf.ui.table;
 
+import fi.niwic.dcf.ui.vm.FreeCashFlowCalculationViewModel;
 import fi.niwic.dcf.ui.vm.InvestedCapitalViewModel;
 
 public class OutputDataTables extends DataTablesAbstract {
@@ -8,8 +9,12 @@ public class OutputDataTables extends DataTablesAbstract {
         PeriodDataTable investedCapitalTable = new PeriodDataTable(new InvestedCapitalViewModel());
         inputDataTables.balanceSheetTable.addDependant(investedCapitalTable);
         
+        PeriodDataTable freeCashFlowTable = new PeriodDataTable(new FreeCashFlowCalculationViewModel());
+        inputDataTables.balanceSheetTable.addDependant(freeCashFlowTable);
+        inputDataTables.incomeStatementTable.addDependant(freeCashFlowTable);
+        
         tables = new PeriodDataTable[] {
-            investedCapitalTable
+            investedCapitalTable, freeCashFlowTable
         };
     }
     

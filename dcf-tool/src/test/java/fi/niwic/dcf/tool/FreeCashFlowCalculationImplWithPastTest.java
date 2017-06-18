@@ -40,7 +40,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         bs.setInventory(100);
         bs.setShortTermNonInterestBearingLiabilities(150);
         
-        assertEquals(75, (long) fcfCalculation.getNetWorkingCapitalDelta().get());
+        assertEquals(-75, (long) fcfCalculation.getNetWorkingCapitalDelta().get());
     }
     
     @Test
@@ -72,7 +72,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         bsPast.setShortTermNonInterestBearingLiabilities(75);
         bsPast.setFixedAssets(100);
         
-        assertEquals(167, (long) fcfCalculation.getOperatingFreeCashFlow().get());
+        assertEquals(-83, (long) fcfCalculation.getOperatingFreeCashFlow().get());
     }
     
     @Test
@@ -94,7 +94,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         bsPast.setShortTermNonInterestBearingLiabilities(75);
         bsPast.setFixedAssets(100);
         
-        assertEquals(191, (long) fcfCalculation.getFreeCashFlow().get());
+        assertEquals(-59, (long) fcfCalculation.getFreeCashFlow().get());
     }
     
 }

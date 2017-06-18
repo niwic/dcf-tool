@@ -90,7 +90,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         long previousNOC = previousBS.getInvestedCapital().getNetOperatingCapital();
         long currentNOC = getCurrentBalanceSheet().getInvestedCapital().getNetOperatingCapital();
 
-        return Math.subtractExact(currentNOC, previousNOC);
+        return Math.subtractExact(previousNOC, currentNOC);
 
     }
 
@@ -131,8 +131,8 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     private long getOperatingFreeCashFlow(BalanceSheet previousBS) {
         long items[] = {
             getGrossCashFlow(),
-            Math.negateExact(getNetWorkingCapitalDelta(previousBS)),
-            Math.negateExact(getGrossInvestments(previousBS))
+            getNetWorkingCapitalDelta(previousBS),
+            getGrossInvestments(previousBS)
         };
 
         return Sum.ofItems(items);

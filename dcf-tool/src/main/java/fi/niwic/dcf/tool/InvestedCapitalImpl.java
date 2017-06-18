@@ -6,11 +6,11 @@ import fi.niwic.dcf.api.InvestedCapital;
 public class InvestedCapitalImpl implements InvestedCapital {
 
     private BalanceSheet bs;
-    
+
     public InvestedCapitalImpl(BalanceSheet balanceSheet) {
         bs = balanceSheet;
     }
-    
+
     @Override
     public long getNetOperatingCapital() {
         long items[] = {
@@ -18,7 +18,7 @@ public class InvestedCapitalImpl implements InvestedCapital {
             bs.getInventory(),
             Math.negateExact(bs.getShortTermNonInterestBearingLiabilities())
         };
-        
+
         return Sum.ofItems(items);
     }
 
@@ -42,8 +42,34 @@ public class InvestedCapitalImpl implements InvestedCapital {
             bs.getPastProfitsOrLoss(),
             bs.getCurrentPeriodProfitOrLoss()
         };
-        
+
         return Sum.ofItems(items);
     }
-    
+
+    @Override
+    public long getInterestBearingFinancialAssets() {
+        return bs.getInterestBearingFinancialAssets();
+    }
+
+    @Override
+    public long getInvestedCapitalFromAssets() {
+        long items[] = {
+            getNetOperatingCapital(),
+            getLongTermAssets()
+        };
+
+        return Sum.ofItems(items);
+    }
+
+    @Override
+    public long getInvestedCapitalFromEquityAndLiabilities() {
+        long items[] = {
+            getLiabilities(),
+            getEquity(),
+            Math.negateExact(getInterestBearingFinancialAssets())
+        };
+
+        return Sum.ofItems(items);
+    }
+
 }

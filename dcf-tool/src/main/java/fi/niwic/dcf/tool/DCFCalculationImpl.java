@@ -10,6 +10,7 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     private String companyName;
     private Period period;
+    private Period perpetualPeriod;
 
     @Override
     public void setCompanyName(String name) {
@@ -32,18 +33,13 @@ public class DCFCalculationImpl implements DCFCalculation {
     }
 
     @Override
-    public List<Period> listPeriods() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public Period getHeadPeriod() {
         return this.period;
     }
 
     @Override
     public void setPerpetualPeriod(Period period) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.perpetualPeriod = period;
     }
 
     @Override

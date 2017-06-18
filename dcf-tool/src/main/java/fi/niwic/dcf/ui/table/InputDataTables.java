@@ -6,10 +6,11 @@ import fi.niwic.dcf.ui.vm.IncomeStatementViewModel;
 public class InputDataTables extends DataTablesAbstract {
     
     protected PeriodDataTable balanceSheetTable;
+    protected PeriodDataTable incomeStatementTable;
     
     public InputDataTables() {
         balanceSheetTable = new PeriodDataTable(new BalanceSheetViewModel());
-        PeriodDataTable incomeStatementTable = new PeriodDataTable(new IncomeStatementViewModel());
+        incomeStatementTable = new PeriodDataTable(new IncomeStatementViewModel());
         
         tables = new PeriodDataTable[] {
             incomeStatementTable, balanceSheetTable

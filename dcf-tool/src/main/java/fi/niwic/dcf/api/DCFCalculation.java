@@ -35,12 +35,6 @@ public interface DCFCalculation {
     public void addPeriod(Period period) throws InvalidPastPeriodException;
 
     /**
-     * Listaa kaikki jaksot.
-     * @return jaksot
-     */
-    public List<Period> listPeriods();
-
-    /**
      * Hakee uusimman lisätyn jakson.
      * @return uusin lisätty jakso
      */

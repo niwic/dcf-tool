@@ -21,7 +21,12 @@ public class PeriodValueFactory implements Callback<TableColumn.CellDataFeatures
         PeriodView pv = cdf.getValue();
         Long value = pv.getGetter().apply(period);
         
-        return new SimpleStringProperty(value.toString());
+        String output = "";
+        if (value != null) {
+            output = value.toString();
+        }
+        
+        return new SimpleStringProperty(output);
     }
     
 }

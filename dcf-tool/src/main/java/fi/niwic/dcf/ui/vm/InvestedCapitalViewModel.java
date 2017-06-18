@@ -1,6 +1,5 @@
 package fi.niwic.dcf.ui.vm;
 
-import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.InvestedCapital;
 import fi.niwic.dcf.api.Period;
 import java.util.ArrayList;
@@ -12,7 +11,8 @@ public class InvestedCapitalViewModel implements PeriodViewModel {
         ArrayList<PeriodView> viewModel = new ArrayList();
 
         PeriodView rows[] = {
-            netOperatingCapital, longTermAssets, liabilities, equity
+            netOperatingCapital, longTermAssets, icFromAssets,
+            liabilities, equity, icFromEnL
         };
 
         for (PeriodView row : rows) {
@@ -37,6 +37,12 @@ public class InvestedCapitalViewModel implements PeriodViewModel {
         period -> investedCapital(period).getLongTermAssets(),
         (period, value) -> { }
     );
+    
+    private static PeriodView icFromAssets = new PeriodView(
+        "Invested Capital",
+        period -> investedCapital(period).getInvestedCapitalFromAssets(),
+        (period, value) -> { }
+    );
 
     private static PeriodView liabilities = new PeriodView(
         "Liabilities",
@@ -49,5 +55,16 @@ public class InvestedCapitalViewModel implements PeriodViewModel {
         period -> investedCapital(period).getEquity(),
         (period, value) -> { }
     );
-
+    
+    private static PeriodView ibfa = new PeriodView(
+        "IB Financial Assets",
+        period -> Math.negateExact(investedCapital(period).getInterestBearingFinancialAssets()),
+        (period, value) -> { }
+    );
+    
+    private static PeriodView icFromEnL = new PeriodView(
+        "Invested Capital",
+        period -> investedCapital(period).getInvestedCapitalFromEquityAndLiabilities(),
+        (period, value) -> { }
+    );
 }
