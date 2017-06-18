@@ -28,7 +28,7 @@ public class PeriodDataTable {
         table = new TableView();
         table.setEditable(true);
         initializeHeadings();
-
+        
         return table;
     }
 
@@ -79,6 +79,11 @@ public class PeriodDataTable {
 
     public void addPeriod(Period period) {
         addPeriodColumn(period);
+    }
+    
+    public void clear() {
+        table.getColumns().clear();
+        initializeHeadings();
     }
 
     public void addDependant(PeriodDataTable pdt) {

@@ -69,6 +69,7 @@ public class StartScene {
             period.setCurrentFinancialStatement(new FinancialStatementImpl());
             calculation.addPeriod(period);
             stage.setScene(mainScene.scene());
+            stage.sizeToScene();
         } catch (NumberFormatException ex) {
             errorLabel.setText("Invalid start year");
         } catch (InvalidPastPeriodException ex) {

@@ -46,8 +46,8 @@ public class BalanceSheetViewModel implements PeriodViewModel {
 
     private static PeriodView fixedAssets = new PeriodView(
         "Fixed Assets",
-        period -> balanceSheet(period).getInventory(),
-        (period, value) -> balanceSheet(period).setInventory(value)
+        period -> balanceSheet(period).getFixedAssets(),
+        (period, value) -> balanceSheet(period).setFixedAssets(value)
     );
 
     private static PeriodView totalAssets = new PeriodView(
@@ -57,19 +57,19 @@ public class BalanceSheetViewModel implements PeriodViewModel {
     );
 
     private static PeriodView stnibl = new PeriodView(
-        "Short term non-ib liabilities",
+        "Short-term Non-IB Liabilities",
         period -> balanceSheet(period).getShortTermNonInterestBearingLiabilities(),
         (period, value) -> balanceSheet(period).setShortTermNonInterestBearingLiabilities(value)
     );
 
     private static PeriodView stibl = new PeriodView(
-        "Short term liabilities",
+        "Short-Term Liabilities",
         period -> balanceSheet(period).getShortTermInterestBearingLiabilities(),
         (period, value) -> balanceSheet(period).setShortTermInterestBearingLiabilities(value)
     );
 
     private static PeriodView lt = new PeriodView(
-        "Long term liabilities",
+        "Long-term Liabilities",
         period -> balanceSheet(period).getLongTermLiabilities(),
         (period, value) -> balanceSheet(period).setLongTermLiabilities(value)
     );
@@ -81,13 +81,13 @@ public class BalanceSheetViewModel implements PeriodViewModel {
     );
 
     private static PeriodView pastProfitLoss = new PeriodView(
-        "Past profit/loss",
+        "Past Profit/Loss",
         period -> balanceSheet(period).getPastProfitsOrLoss(),
         (period, value) -> balanceSheet(period).setPastProfitsOrLoss(value)
     );
 
     private static PeriodView currentProfitLoss = new PeriodView(
-        "Current profit/loss",
+        "Current Profit/Loss",
         period -> balanceSheet(period).getCurrentPeriodProfitOrLoss(),
         (period, value) -> balanceSheet(period).setCurrentPeriodProfitOrLoss(value)
     );
