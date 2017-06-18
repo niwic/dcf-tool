@@ -1,6 +1,8 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+18.06.2017 | 1h     | WACC implementaatio & DCFCalculationImpl osa
+18.06.2017 | 2h     | Käyttöliitymärefaktorointia & lisää free cash-flow laskelma
 15.06.2017 | 1h     | Sekvenssikaaviot & muut
 14.06.2017 | 1h     | Käyttöliittymällä voi nähdä pääomalaskelman
 11.06.2017 | 0.5h   | Käyttöliittymällä voi muokata tasetta

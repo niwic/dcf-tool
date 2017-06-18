@@ -17,7 +17,7 @@ public class FreeCashFlowCalculationImplTestAbstract {
     protected FreeCashFlowCalculationImpl fcfCalculation;
     
     @Before
-        public void setUp() throws InvalidPastPeriodException {
+    public void setUp() throws InvalidPastPeriodException {
         is = new IncomeStatementImpl();
         bs = new BalanceSheetImpl();
         fs = new FinancialStatementImpl(is, bs);

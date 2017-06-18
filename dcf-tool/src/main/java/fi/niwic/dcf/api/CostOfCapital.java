@@ -9,6 +9,6 @@ public interface CostOfCapital {
      * Palauttaa yrityksen tavoitetun pääomakustannusprosentin.
      * @return pääomakustannusprosentti
      */
-	public long getCostOfCapital();
+	public Double getCostOfCapital();
 	
 }
