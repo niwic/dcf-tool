@@ -44,7 +44,7 @@ public interface DCFCalculation {
      * Asettaa viimeisen jakson.
      * @param period viimeinen jakso
      */
-    public void setPerpetualPeriod(Period period);
+    public void setPerpetualPeriod(Period period) throws InvalidPastPeriodException;
 
     /**
      * Palauttaa viimeisen jakson.

@@ -30,6 +30,9 @@ public class DCFCalculationImpl implements DCFCalculation {
             this.period = period;
         } else {
             period.setPastPeriod(this.period);
+            if (perpetualPeriod != null) {
+                perpetualPeriod.setPastPeriod(period);
+            }
             this.period = period;
         }
     }
@@ -40,8 +43,9 @@ public class DCFCalculationImpl implements DCFCalculation {
     }
 
     @Override
-    public void setPerpetualPeriod(Period period) {
+    public void setPerpetualPeriod(Period period) throws InvalidPastPeriodException {
         this.perpetualPeriod = period;
+        this.perpetualPeriod.setPastPeriod(this.period);
     }
 
     @Override
@@ -71,9 +75,10 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     @Override
     public long calculateValuation() {
-        long valuation = 0;
         Optional<Period> presentValuePeriod = presentValuePeriod();
         Optional<Period> currentPeriod = Optional.of(period);
+        
+        long valuation = 0;
         while (currentPeriod.isPresent() && presentValuePeriod.isPresent()) {
             valuation += calculatePeriodDiscountedCashFlow(currentPeriod.get(), presentValuePeriod.get());
         }
@@ -108,20 +113,31 @@ public class DCFCalculationImpl implements DCFCalculation {
     private long calculatePerpetualPeriodDiscountedCashFlow() {
         if (perpetualPeriod == null) return 0;
         
+        long perpetualNoplat = perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT();
         double coc = costOfCapital.getCostOfCapital();
+        double noplatGrowth = getNOPLATGrowth();
+        double investmentGrowth = getInvestmentGrowthRate();
         
-        long profitGrowth = 
-                perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT() -
-                period.getFreeCashFlowCalculation().getNOPLAT();
-        double rateOfGrowth = profitGrowth / period.getFreeCashFlowCalculation().getNOPLAT();
+        return (long) ((perpetualNoplat * (1-investmentGrowth) * (1+noplatGrowth)) / (coc - noplatGrowth));
+    }
+    
+    private Double getNOPLATGrowth() {
+        long perpetualNOPLAT = perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT();
+        long headPeriodNOPLAT = period.getFreeCashFlowCalculation().getNOPLAT();
+        long profitGrowth = perpetualNOPLAT - headPeriodNOPLAT;
         
-        long investmentGrowth = 
-                perpetualPeriod.getFreeCashFlowCalculation().getNetWorkingCapitalDelta().orElse(0L) + 
-                perpetualPeriod.getFreeCashFlowCalculation().getGrossInvestments().orElse(0L) -
-                perpetualPeriod.getFreeCashFlowCalculation().getDepreciation();
-        long investmentRate = investmentGrowth / perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT();
+        return (double) profitGrowth / headPeriodNOPLAT;
+    }
+    
+    private Double getInvestmentGrowthRate() {
+        long noplat = perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT();
+        long nwcDelta = perpetualPeriod.getFreeCashFlowCalculation().getNetWorkingCapitalDelta().orElse(0L);
+        long grossInv = perpetualPeriod.getFreeCashFlowCalculation().getGrossInvestments().orElse(0L);
+        long depreciation = perpetualPeriod.getFreeCashFlowCalculation().getDepreciation();
         
-        return (long) (perpetualPeriod.getFreeCashFlowCalculation().getNOPLAT() * (1-investmentRate) * (1+rateOfGrowth) / (coc - rateOfGrowth));
+        long investmentGrowth = nwcDelta + grossInv - depreciation;
+        
+        return (double) investmentGrowth / noplat;
     }
 
 }
