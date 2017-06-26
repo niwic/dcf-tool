@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface Period {
 	
 	public Integer getYear();
+        public Long getDiscountYears();
 	public boolean isPrediction();
 	
 	public void setCurrentFinancialStatement(FinancialStatement financialStatement);

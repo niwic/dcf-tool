@@ -1,6 +1,7 @@
 package fi.niwic.dcf.api;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Discounted Cash-flow Calculation laskee yrityksen jaksojen taseista ja
@@ -50,19 +51,13 @@ public interface DCFCalculation {
      * Palauttaa viimeisen jakson.
      * @return viimeinen jakso
      */
-    public Period getPerpetualPeriod();
-
-    /**
-     * Asettaa pääomakustannuslaskurin.
-     * @param costOfCapital pääomakustnanuslaskuri
-     */
-    public void setCostOfCapital(CostOfCapital costOfCapital);
+    public Optional<Period> getPerpetualPeriod();
 
     /**
      * Palauttaa pääomakustannuslaskurin.
      * @return pääomakustannuslaskurin
      */
-    public CostOfCapital getCostOfCapital();
+    public Optional<CostOfCapital> getCostOfCapital();
 
     /**
      * Asettaa osakkeiden lukumäärän.
@@ -74,12 +69,12 @@ public interface DCFCalculation {
      * Hakee osakkeiden lukumäärän.
      * @return osakkeiden lukumäärä
      */
-    public long getNumberOfShares();
+    public Optional<Long> getNumberOfShares();
 
     /**
      * Palautta yrityksen arvon osaketta kohti.
      * @return yrityksen arvo osaketta kohti
      */
-    public long calculateValuation();
+    public Optional<Long> calculateValuation();
 
 }

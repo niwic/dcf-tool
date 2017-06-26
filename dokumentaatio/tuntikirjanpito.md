@@ -1,6 +1,8 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+26.06.2017 | 1h     | Refaktorointia
+25.06.2017 | 1h     | Refaktorointia
 20.06.2017 | 30m    | DCFCalculationImpl siivousta
 18.06.2017 | 1h     | WACC implementaatio & DCFCalculationImpl osa
 18.06.2017 | 2h     | Käyttöliitymärefaktorointia & lisää free cash-flow laskelma

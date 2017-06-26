@@ -1,15 +1,17 @@
 package fi.niwic.dcf.tool;
 
 import fi.niwic.dcf.api.BalanceSheet;
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.IncomeStatement;
+import fi.niwic.dcf.api.InvestedCapital;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
 public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
-    private Period period;
+    protected Period period;
 
     public FreeCashFlowCalculationImpl(Period period) {
         this.period = period;
@@ -171,7 +173,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         return period.getCurrentFinancialStatement().getBalanceSheet();
     }
 
-    private Optional<BalanceSheet> getPreviousBalanceSheet() {
+    protected Optional<BalanceSheet> getPreviousBalanceSheet() {
         return period.getPastPeriod()
                 .map(Period::getCurrentFinancialStatement)
                 .map(FinancialStatement::getBalanceSheet);
@@ -179,6 +181,21 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     private double getRealizedTaxRate() {
         return period.getCurrentFinancialStatement().getIncomeStatement().getRealizedTaxRate();
+    }
+    
+    @Override
+    public Optional<Long> getDiscountedFreeCashFlow(CostOfCapital coc) {
+        Optional<BalanceSheet> previousBS = getPreviousBalanceSheet();
+        Optional<Long> result = previousBS.map(bs -> getDiscountedFreeCashFlow(bs, coc));
+        
+        return result;
+    }
+    
+    private long getDiscountedFreeCashFlow(BalanceSheet previousBS, CostOfCapital coc) {
+        long fcf = getFreeCashFlow(previousBS);
+        double discountedFcf = fcf / Math.pow(1 + coc.getCostOfCapital()/100, period.getDiscountYears());
+        
+        return (long) discountedFcf;
     }
 
 }

@@ -1,5 +1,6 @@
 package fi.niwic.dcf.tool;
 
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
@@ -9,6 +10,7 @@ import java.util.Optional;
 public class PeriodImpl implements Period {
 
     private int year;
+    private long discountYears;
     private boolean isPrediction;
 
     private FinancialStatement financialStatement;
@@ -25,6 +27,11 @@ public class PeriodImpl implements Period {
         return year;
     }
 
+    @Override
+    public Long getDiscountYears() {
+        return discountYears;
+    }
+    
     @Override
     public boolean isPrediction() {
         return isPrediction;

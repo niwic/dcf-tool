@@ -1,5 +1,7 @@
 package fi.niwic.dcf.tool;
 
+import fi.niwic.dcf.api.BalanceSheet;
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.DCFCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;

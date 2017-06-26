@@ -1,7 +1,11 @@
 package fi.niwic.dcf.ui;
 
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.DCFCalculation;
+import fi.niwic.dcf.api.Period;
 import fi.niwic.dcf.tool.DCFCalculationImpl;
+import fi.niwic.dcf.tool.PeriodImpl;
+import fi.niwic.dcf.tool.WACC;
 import javafx.stage.Stage;
 
 public class UI {

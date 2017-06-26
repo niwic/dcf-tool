@@ -66,7 +66,7 @@ public class MainScene {
     
     private void initializeTables() {
         inputDataTables = new InputDataTables();
-        outputDataTables = new OutputDataTables(inputDataTables);
+        outputDataTables = new OutputDataTables(inputDataTables, calculation);
     }
     
     private HBox createMenuBar() {
