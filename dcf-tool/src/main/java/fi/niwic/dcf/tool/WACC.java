@@ -6,8 +6,8 @@ import fi.niwic.dcf.api.InvestedCapital;
 public class WACC implements CostOfCapital {
 
     private InvestedCapital investedCapital;
-    private Double costOfOwnCapital;
-    private Double costOfBorrowedCapital;
+    private double costOfOwnCapital;
+    private double costOfBorrowedCapital;
     
     public WACC(InvestedCapital investedCapital) {
         this.investedCapital = investedCapital;

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class PeriodImpl implements Period {
 
-    private int year;
+    protected int year;
     private long discountYears;
     private boolean isPrediction;
 
@@ -27,6 +27,11 @@ public class PeriodImpl implements Period {
         return year;
     }
 
+    @Override
+    public void setDiscountYears(long years) {
+        this.discountYears = years;
+    }
+    
     @Override
     public Long getDiscountYears() {
         return discountYears;
@@ -51,6 +56,10 @@ public class PeriodImpl implements Period {
     public void setPastPeriod(Period pastPeriod) throws InvalidPastPeriodException {
         if (pastPeriod.getYear() != year - 1) {
             throw new InvalidPastPeriodException(pastPeriod.getYear(), year);
+        }
+        
+        if (isPrediction()) {
+            setDiscountYears(pastPeriod.getDiscountYears() + 1);
         }
 
         this.pastPeriod = Optional.of(pastPeriod);

@@ -2,7 +2,6 @@ package fi.niwic.dcf.ui.table;
 
 import fi.niwic.dcf.api.Period;
 import fi.niwic.dcf.ui.vm.PeriodView;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn;
@@ -14,6 +13,10 @@ public class PeriodValueFactory implements Callback<TableColumn.CellDataFeatures
     
     public PeriodValueFactory(Period period) {
         this.period = period;
+    }
+    
+    public Period getPeriod() {
+        return period;
     }
     
     @Override

@@ -11,12 +11,15 @@ import fi.niwic.dcf.ui.table.OutputDataTables;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -47,7 +50,7 @@ public class MainScene {
     public void initializeLayout() {
         layout = new VBox();
         layout.getChildren().addAll(
-            createMenuBar(), createDataArea()
+            createMenuBar(), createInputBar(), createDataArea()
         );
     }
     
@@ -58,10 +61,65 @@ public class MainScene {
         
         dataArea.getChildren().addAll(inputDataArea, outputDataArea);
         
+        createDataAreaTables();
+        
         ScrollPane sp = new ScrollPane();
         sp.setContent(dataArea);
         
         return dataArea;
+    }
+    
+    private HBox createInputBar() {
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(10));
+        hbox.setSpacing(10);
+        hbox.setStyle("-fx-background-color: #336699;-fx-text-fill: #FFFFFF;");
+        
+        hbox.getChildren().addAll(
+                createInput("Cost of equity:", this::updateCostOfEquity),
+                createInput("Cost of debt:", this::updateCostOfDebt)
+        );
+        
+        return hbox;
+    }
+    
+    private VBox createInput(String labelText, ChangeListener<? super String> changeListener) {
+        Label label = new Label(labelText);
+        TextField ta = new TextField();
+        ta.textProperty().addListener(changeListener);
+        
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(label, ta);
+        
+        return vbox;
+    }
+    
+    private void updateCostOfEquity(ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+        try {
+            Double value = Double.parseDouble(newValue);
+            calculation.getCostOfCapital().setCostOfOwnCapital(value);
+        } catch (NumberFormatException e) {
+            // TODO
+        }
+    }
+    
+    private void updateCostOfDebt(ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+        try {
+            Double value = Double.parseDouble(newValue);
+            calculation.getCostOfCapital().setCostOfBorrowedCapital(value);
+        } catch (NumberFormatException e) {
+            // TODO
+        }
+    }
+    
+    private void createDataAreaTables() {
+        for (PeriodDataTable table: inputDataTables.getList()) {
+            inputDataArea.getChildren().add(table.getTable());
+        }
+        
+        for (PeriodDataTable table: outputDataTables.getList()) {
+            outputDataArea.getChildren().add(table.getTable());
+        }
     }
     
     private void initializeTables() {
@@ -73,7 +131,7 @@ public class MainScene {
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10));
         hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;");
+        hbox.setStyle("-fx-background-color: #336699;-fx-text-fill: #FFFFFF;");
         
         hbox.getChildren().addAll(
                 createCompanyNameLabel(),
@@ -104,13 +162,13 @@ public class MainScene {
     
     private void addYear(ActionEvent e) {
         Integer nextYear = calculation.getHeadPeriod().getYear() + 1;
-        Period newPeriod = new PeriodImpl(nextYear, false);
+        Period newPeriod = new PeriodImpl(nextYear, true);
         newPeriod.setCurrentFinancialStatement(new FinancialStatementImpl());
         
         try {
             calculation.addPeriod(newPeriod);
-            inputDataTables.addPeriod(newPeriod);
-            outputDataTables.addPeriod(newPeriod);
+            inputDataTables.addPeriod(newPeriod, -1);
+            outputDataTables.addPeriod(newPeriod, -1);
         } catch (InvalidPastPeriodException ex) {
             /* should be impossible */
         }
@@ -119,16 +177,6 @@ public class MainScene {
     public void resetContent() {
         resetPeriods();
         companyNameLabel.setText(calculation.getCompanyName());
-        inputDataArea.getChildren().clear();
-        outputDataArea.getChildren().clear();
-        
-        for (PeriodDataTable table: inputDataTables.getList()) {
-            inputDataArea.getChildren().add(table.getTable());
-        }
-        
-        for (PeriodDataTable table: outputDataTables.getList()) {
-            outputDataArea.getChildren().add(table.getTable());
-        }
     }
     
     public void resetPeriods() {
@@ -147,6 +195,11 @@ public class MainScene {
             inputDataTables.addPeriod(period);
             outputDataTables.addPeriod(period);
         }
+        
+        calculation.getPerpetualPeriod().ifPresent(p -> {
+            inputDataTables.addPeriod(p);
+            outputDataTables.addPeriod(p);
+        });
     }
         
     public Scene scene() {

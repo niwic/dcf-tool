@@ -38,15 +38,24 @@ public class PeriodDataTable {
         headingColumn.setPrefWidth(300);
     }
 
-    private TableColumn addPeriodColumn(Period period) {
-        TableColumn column = addColumn();
-        column.setText(period.getYear().toString());
+    private TableColumn addPeriodColumn(Period period, int offset) {
+        TableColumn column = addColumn(offset);
+        column.setText(getPeriodHeader(period));
         column.setEditable(true);
         column.setCellValueFactory(new PeriodValueFactory(period));
         column.setCellFactory(TextFieldTableCell.forTableColumn());
         column.setOnEditCommit(onEditCommit(period));
 
         return column;
+    }
+    
+    private String getPeriodHeader(Period period) {
+        String yearText = period.getYear().toString();
+        if (period.isPrediction()) {
+            yearText += "P";
+        }
+        
+        return yearText;
     }
 
     private EventHandler<CellEditEvent<PeriodView, String>> onEditCommit(Period period) {
@@ -63,12 +72,18 @@ public class PeriodDataTable {
             }
         };
     }
-
+    
     private TableColumn addColumn() {
+        return addColumn(0);
+    }
+    
+    private TableColumn addColumn(int offset) {
         TableColumn column = new TableColumn();
         column.setSortable(false);
         column.setEditable(false);
-        table.getColumns().add(column);
+        
+        int pos = table.getColumns().size() + offset;
+        table.getColumns().add(pos, column);
 
         return column;
     }
@@ -77,8 +92,8 @@ public class PeriodDataTable {
         return table;
     }
 
-    public void addPeriod(Period period) {
-        addPeriodColumn(period);
+    public void addPeriod(Period period, int offset) {
+        addPeriodColumn(period, offset);
     }
     
     public void clear() {
@@ -90,8 +105,20 @@ public class PeriodDataTable {
         dependants.add(pdt);
     }
 
+    public void refreshColumnHeadings() {
+        for (Object c : table.getColumns()) {
+            TableColumn col = (TableColumn) c;
+            Object cvf = col.getCellValueFactory();
+            if (cvf instanceof PeriodValueFactory) {
+                Period p = ((PeriodValueFactory) cvf).getPeriod();
+                col.setText(getPeriodHeader(p));
+            }
+        }
+    }
+    
     public void refresh() {
         table.refresh();
+        refreshColumnHeadings();
         for (PeriodDataTable d : dependants) {
             d.refresh();
         }

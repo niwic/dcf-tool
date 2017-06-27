@@ -11,8 +11,13 @@ public abstract class DataTablesAbstract {
     }
     
     public void addPeriod(Period period) {
+        addPeriod(period, 0);
+    }
+    
+    public void addPeriod(Period period, int offset) {
         for (PeriodDataTable table : tables) {
-            table.addPeriod(period);
+            table.addPeriod(period, offset);
+            table.refresh();
         }
     }
     

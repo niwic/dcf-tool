@@ -115,7 +115,7 @@ public class FreeCashFlowCalculationViewModel implements PeriodViewModel {
     
     private PeriodView discountedFreeCashFlow = new PeriodView(
         "Discounted Free Cash-flow",
-        period -> dcf.getCostOfCapital().flatMap(coc -> fcf(period).getDiscountedFreeCashFlow(coc)).orElse(null),
+        period -> fcf(period).getDiscountedFreeCashFlow(dcf.getCostOfCapital()).orElse(null),
         (period, value) -> { }
     );
     

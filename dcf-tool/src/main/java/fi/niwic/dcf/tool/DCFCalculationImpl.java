@@ -10,14 +10,14 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     private String companyName;
     private Period period;
+    private CostOfCapital costOfCapital;
     private Optional<Period> perpetualPeriod;
-    private Optional<CostOfCapital> costOfCapital;
     private Optional<Long> numberOfShares;
 
-    public DCFCalculationImpl() {
+    public DCFCalculationImpl(CostOfCapital costOfCapital) {
         this.perpetualPeriod = Optional.empty();
-        this.costOfCapital = Optional.empty();
         this.numberOfShares = Optional.empty();
+        this.costOfCapital = costOfCapital;
     }
 
     @Override
@@ -36,10 +36,11 @@ public class DCFCalculationImpl implements DCFCalculation {
             this.period = period;
         } else {
             period.setPastPeriod(this.period);
-            if (perpetualPeriod.isPresent()) {
-                perpetualPeriod.get().setPastPeriod(period);
-            }
             this.period = period;
+        }
+        
+        if (perpetualPeriod.isPresent()) {
+            perpetualPeriod.get().setPastPeriod(period);
         }
     }
 
@@ -50,8 +51,11 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     @Override
     public void setPerpetualPeriod(Period period) throws InvalidPastPeriodException {
+        if (this.period != null) {
+            period.setPastPeriod(this.period);
+        }
+        
         this.perpetualPeriod = Optional.of(period);
-        period.setPastPeriod(this.period);
     }
 
     @Override
@@ -60,7 +64,7 @@ public class DCFCalculationImpl implements DCFCalculation {
     }
 
     @Override
-    public Optional<CostOfCapital> getCostOfCapital() {
+    public CostOfCapital getCostOfCapital() {
         return costOfCapital;
     }
 
@@ -103,7 +107,7 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     private Optional<Long> calculatePeriodDiscountedCashFlow(Period period, Period pvPeriod) {
         long years = period.getYear() - pvPeriod.getYear();
-        Optional<Long> result = costOfCapital.flatMap(coc -> period.getFreeCashFlowCalculation().getDiscountedFreeCashFlow(coc));
+        Optional<Long> result = period.getFreeCashFlowCalculation().getDiscountedFreeCashFlow(costOfCapital);
 
         return result;
     }

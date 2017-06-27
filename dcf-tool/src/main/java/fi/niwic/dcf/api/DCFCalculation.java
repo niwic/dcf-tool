@@ -57,7 +57,7 @@ public interface DCFCalculation {
      * Palauttaa pääomakustannuslaskurin.
      * @return pääomakustannuslaskurin
      */
-    public Optional<CostOfCapital> getCostOfCapital();
+    public CostOfCapital getCostOfCapital();
 
     /**
      * Asettaa osakkeiden lukumäärän.

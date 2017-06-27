@@ -12,11 +12,14 @@ import org.junit.Test;
 
 public class DCFCalculationImplTest {
 
+    private CostOfCapital coc;
     private DCFCalculation dcf;
     
     @Before
     public void setUp() {
-        dcf = new DCFCalculationImpl();
+        BalanceSheet bs = new BalanceSheetImpl();
+        coc = new WACC(bs.getInvestedCapital());
+        dcf = new DCFCalculationImpl(coc);
     }
     
     @Test
@@ -41,6 +44,51 @@ public class DCFCalculationImplTest {
         dcf.addPeriod(additional);
         assertEquals(additional, dcf.getHeadPeriod());
         assertEquals(Optional.of(period), additional.getPastPeriod());
+    }
+    
+    @Test
+    public void checkSetPerpetualPeriod() throws InvalidPastPeriodException {
+        Period perpetual = new PerpetualPeriod();
+        dcf.setPerpetualPeriod(perpetual);
+        
+        assertEquals(perpetual, dcf.getPerpetualPeriod().get());
+    }
+    
+    @Test
+    public void checkSetPerpetualPeriodThenAddPeriod() throws InvalidPastPeriodException {
+        Period perpetual = new PerpetualPeriod();
+        dcf.setPerpetualPeriod(perpetual);
+        
+        Period period = new PeriodImpl(2017, false);
+        dcf.addPeriod(period);
+        
+        assertEquals(period, perpetual.getPastPeriod().get());
+        assertEquals(2018, (long) perpetual.getYear());
+        assertEquals(1, (long) perpetual.getDiscountYears());
+    }
+    
+    @Test
+    public void checkAddPeriodThenSetPerpetualPeriod() throws InvalidPastPeriodException {
+        Period period = new PeriodImpl(2017, false);
+        dcf.addPeriod(period);
+        
+        Period perpetual = new PerpetualPeriod();
+        dcf.setPerpetualPeriod(perpetual);
+        
+        assertEquals(period, perpetual.getPastPeriod().get());
+        assertEquals(2018, (long) perpetual.getYear());
+        assertEquals(1, (long) perpetual.getDiscountYears());
+    }
+    
+    @Test
+    public void checkGetCostOfCapital() {
+        assertEquals(coc, dcf.getCostOfCapital());
+    }
+    
+    @Test
+    public void checkNumberOfShares() {
+        dcf.setNumberOfShares(123456L);
+        assertEquals(123456L, (long) dcf.getNumberOfShares().get());
     }
     
 }

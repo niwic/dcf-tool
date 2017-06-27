@@ -12,4 +12,18 @@ public interface CostOfCapital {
      */
     public Double getCostOfCapital();
 
+    /**
+     * Asettaa oman pääoman kustannusprosentin.
+     * 
+     * @param rate kustannus prosentti
+     */
+    public void setCostOfOwnCapital(Double rate);
+    
+    /**
+     * Asettaa vieraan pääoman kustannusprosentin.
+     * 
+     * @param rate korko
+     */
+    public void setCostOfBorrowedCapital(Double rate);
+    
 }

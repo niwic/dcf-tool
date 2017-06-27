@@ -1,6 +1,7 @@
 package fi.niwic.dcf.tool;
 
 import fi.niwic.dcf.api.BalanceSheet;
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.IncomeStatement;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
@@ -25,7 +26,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         isPast = new IncomeStatementImpl();
         fsPast = new FinancialStatementImpl(isPast, bsPast);
         
-        periodPast = new PeriodImpl(period.getYear()-1, false);
+        periodPast = new PeriodImpl(period.getYear()-1, true);
         periodPast.setCurrentFinancialStatement(fsPast);
         period.setPastPeriod(periodPast);
     }
@@ -95,6 +96,19 @@ public class FreeCashFlowCalculationImplWithPastTest
         bsPast.setFixedAssets(100);
         
         assertEquals(-59, (long) fcfCalculation.getFreeCashFlow().get());
+    }
+    
+    @Test
+    public void checkGetDiscountedFreeCashFlow() {
+        is.setTurnover(100);
+        bs.setBoundEquity(100);
+        bs.setLongTermLiabilities(100);
+        
+        CostOfCapital coc = new WACC(bs.getInvestedCapital());
+        coc.setCostOfBorrowedCapital(10.0);
+        coc.setCostOfOwnCapital(10.0);
+        
+        assertEquals(90, (long) fcfCalculation.getDiscountedFreeCashFlow(coc).get());
     }
     
 }

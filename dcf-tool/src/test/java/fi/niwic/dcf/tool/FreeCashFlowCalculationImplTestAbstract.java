@@ -22,7 +22,7 @@ public class FreeCashFlowCalculationImplTestAbstract {
         is = new IncomeStatementImpl();
         bs = new BalanceSheetImpl();
         fs = new FinancialStatementImpl(is, bs);
-        period = new PeriodImpl(2017, false);
+        period = new PeriodImpl(2017, true);
         fcfCalculation = new FreeCashFlowCalculationImpl(period);
         
         period.setCurrentFinancialStatement(fs);

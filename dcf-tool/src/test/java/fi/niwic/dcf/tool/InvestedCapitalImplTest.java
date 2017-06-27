@@ -98,4 +98,22 @@ public class InvestedCapitalImplTest {
         investedCapital.getEquity();
     }
     
+    @Test
+    public void checkGetInvestedCapitalFromAssets() {
+        balanceSheet.setNonInterestBearingFinancialAssets(1);
+        balanceSheet.setInventory(2);
+        balanceSheet.setShortTermNonInterestBearingLiabilities(3);
+        balanceSheet.setFixedAssets(4);
+        
+        assertEquals(4, investedCapital.getInvestedCapitalFromAssets());
+    }
+    
+    @Test
+    public void checkGetInvestedCapitalFromEquityAndLiabilities() {
+        balanceSheet.setBoundEquity(1);
+        balanceSheet.setLongTermLiabilities(2);
+        
+        assertEquals(3, investedCapital.getInvestedCapitalFromEquityAndLiabilities());
+    }
+    
 }
