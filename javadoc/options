@@ -1,0 +1,22 @@
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/nic/Documents/NetBeansProjects/DCF/dcf-tool/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2017. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/nic/Documents/NetBeansProjects/DCF/dcf-tool/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'dcf-tool 1.0-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' 'C:/Users/nic/Documents/NetBeansProjects/DCF/dcf-tool/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'dcf-tool 1.0-SNAPSHOT API'

@@ -54,8 +54,8 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> fixedAssets = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <span class="jxr_string">"Fixed Assets"</span>,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          period -&gt; balanceSheet(period).getInventory(),
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          (period, value) -&gt; balanceSheet(period).setInventory(value)
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          period -&gt; balanceSheet(period).getFixedAssets(),
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          (period, value) -&gt; balanceSheet(period).setFixedAssets(value)
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      );
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> totalAssets = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
@@ -65,19 +65,19 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      );
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> stnibl = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <span class="jxr_string">"Short term non-ib liabilities"</span>,
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <span class="jxr_string">"Short-term Non-IB Liabilities"</span>,
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          period -&gt; balanceSheet(period).getShortTermNonInterestBearingLiabilities(),
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          (period, value) -&gt; balanceSheet(period).setShortTermNonInterestBearingLiabilities(value)
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      );
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> stibl = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <span class="jxr_string">"Short term liabilities"</span>,
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <span class="jxr_string">"Short-Term Liabilities"</span>,
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          period -&gt; balanceSheet(period).getShortTermInterestBearingLiabilities(),
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          (period, value) -&gt; balanceSheet(period).setShortTermInterestBearingLiabilities(value)
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      );
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> lt = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <span class="jxr_string">"Long term liabilities"</span>,
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <span class="jxr_string">"Long-term Liabilities"</span>,
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          period -&gt; balanceSheet(period).getLongTermLiabilities(),
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          (period, value) -&gt; balanceSheet(period).setLongTermLiabilities(value)
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      );
@@ -89,13 +89,13 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      );
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> pastProfitLoss = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          <span class="jxr_string">"Past profit/loss"</span>,
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          <span class="jxr_string">"Past Profit/Loss"</span>,
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          period -&gt; balanceSheet(period).getPastProfitsOrLoss(),
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          (period, value) -&gt; balanceSheet(period).setPastProfitsOrLoss(value)
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      );
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a> currentProfitLoss = <strong class="jxr_keyword">new</strong> <a href="../../../../../fi/niwic/dcf/ui/vm/PeriodView.html">PeriodView</a>(
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <span class="jxr_string">"Current profit/loss"</span>,
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <span class="jxr_string">"Current Profit/Loss"</span>,
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          period -&gt; balanceSheet(period).getCurrentPeriodProfitOrLoss(),
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          (period, value) -&gt; balanceSheet(period).setCurrentPeriodProfitOrLoss(value)
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      );

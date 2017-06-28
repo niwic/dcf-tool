@@ -3,6 +3,10 @@ package fi.niwic.dcf.tool;
 import fi.niwic.dcf.api.BalanceSheet;
 import fi.niwic.dcf.api.InvestedCapital;
 
+/**
+ * Yrityksen yhden tilikauden tase.
+ * @see BalanceSheet
+ */
 public class BalanceSheetImpl implements BalanceSheet {
 
     private long nonIntBearFinAss;

@@ -8,6 +8,10 @@ import fi.niwic.dcf.api.IncomeStatement;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
+/**
+ * Kassavirta-analyysi.
+ * @see FreeCashFlowCalculation
+ */
 public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     protected Period period;

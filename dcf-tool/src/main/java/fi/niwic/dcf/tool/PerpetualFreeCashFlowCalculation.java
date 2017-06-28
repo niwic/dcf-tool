@@ -5,6 +5,10 @@ import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
+/**
+ * Jatkuvan kauden kassavirta-analyysi.
+ * @see FreeCashFlowCalculation
+ */
 public class PerpetualFreeCashFlowCalculation extends FreeCashFlowCalculationImpl {
 
     /**

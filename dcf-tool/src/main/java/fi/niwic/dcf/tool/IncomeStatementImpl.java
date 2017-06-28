@@ -2,6 +2,10 @@ package fi.niwic.dcf.tool;
 
 import fi.niwic.dcf.api.IncomeStatement;
 
+/**
+ * Tuloslaskelma.
+ * @see IncomeStatement
+ */
 public class IncomeStatementImpl implements IncomeStatement {
 
 	private long turnover;

@@ -6,6 +6,10 @@ import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
+/**
+ * Standardi diskontattu pääomalaskelma implementaatio.
+ * @see DCFCalculation
+ */
 public class DCFCalculationImpl implements DCFCalculation {
 
     private String companyName;

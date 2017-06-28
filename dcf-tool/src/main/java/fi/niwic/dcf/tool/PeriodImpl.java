@@ -6,6 +6,10 @@ import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
+/**
+ * Tilikausi.
+ * @see Period
+ */
 public class PeriodImpl implements Period {
 
     protected int year;

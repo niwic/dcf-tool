@@ -1,6 +1,7 @@
 ### Tuntikirjanpito
 Päivä      | Tunnit | Kuvaus
 ---------- | ------ | ------
+28.06.2017 | 3h     | Viimeistely
 28.06.2017 | 1h     | Käyttöliittymän viimeistely
 27.06.2017 | 2h     | Diskontatut kassavirrat, pääomakustannus & jatkuva jakso näkyvät käyttöliittymällä
 26.06.2017 | 1h     | Refaktorointia

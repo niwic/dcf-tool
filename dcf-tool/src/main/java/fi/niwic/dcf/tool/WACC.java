@@ -3,6 +3,9 @@ package fi.niwic.dcf.tool;
 import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.InvestedCapital;
 
+/**
+ * Keskimääräisen pääomakustannuksen laskelma.
+ */
 public class WACC implements CostOfCapital {
 
     private InvestedCapital investedCapital;

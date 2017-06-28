@@ -5,6 +5,10 @@ import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 
+/**
+ * Jatkuva kausi.
+ * @see Period
+ */
 public class PerpetualPeriod extends PeriodImpl {
 
     /**

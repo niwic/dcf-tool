@@ -20,5 +20,12 @@ Käyttäjä lisää tiedot muutamasta vanhasta tilinpäätöksestä, ja tekee ar
 ### Luokkakaavio
 ![Luokkakaavio](img/Luokkakaavio.png)
 
+### Rakennekuvaus
+Ohjelmassa tehdään diskontattu kassavirta-analyysi, jonka keskipisteenä on luokka DCFCalculationImpl. Analyysin tekemiseksi siihen lisätään jaksoja, eli PeriodImpl luokkien ilmentymiä. Lisäksi tarvitaan pääomakustannuslaskelma WACC. Laskelmaan lisätään myös PerpetualPeriod ilmentymä jolla lasketaan jatkuvan kehityksen kassavirrat.
+
+Jokaiseen jaksoon kuuluu tilinpäätös FinancialStatementImpl. Tilinpäätökseen kuuluu tuloslaskelma, IncomeStatementImpl, ja tase BalanceSheetImpl. Taseesta tehdään myös pääomalaskelma InvestedCapitalImpl.
+
+Kun DCFCalculationImpl luokalla on kaikki tarvittavat komponentit voidaan jaksoille luoda FreeCashFlowCalculationImpl jolla lasketaan kassavirrat. Jatkuvalle kaudelle luodaan PerpetualFreeCashFlowCalculation. Laskelmien summasta muodostuu yrityksen arvo-arvio.
+
 ### Sekvenssikaaviot
 ![Sekvenssikaaviot](img/Sekvenssikaaviot.png)
