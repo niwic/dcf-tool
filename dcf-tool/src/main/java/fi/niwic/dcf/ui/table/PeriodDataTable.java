@@ -3,25 +3,29 @@ package fi.niwic.dcf.ui.table;
 import fi.niwic.dcf.ui.vm.PeriodView;
 import fi.niwic.dcf.ui.vm.PeriodViewModel;
 import fi.niwic.dcf.api.Period;
+import fi.niwic.dcf.ui.vm.Refreshable;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class PeriodDataTable {
+public class PeriodDataTable implements Refreshable {
 
-    private List<PeriodDataTable> dependants;
+    private List<Refreshable> dependants;
     private TableView table;
+    private Label errorLabel;
 
-    public PeriodDataTable(PeriodViewModel viewModel) {
+    public PeriodDataTable(PeriodViewModel viewModel, Label errorLabel) {
         createTable();
         dependants = new ArrayList();
         table.setItems(FXCollections.observableArrayList(viewModel.get()));
         table.setPrefHeight(25 * (table.getItems().size() + 1.01));
+        this.errorLabel = errorLabel;
     }
 
     private TableView createTable() {
@@ -67,7 +71,7 @@ public class PeriodDataTable {
                     ev.getRowValue().getSetter().accept(period, value);
                     refresh();
                 } catch (NumberFormatException ex) {
-
+                    errorLabel.setText("An invalid number has been entered in the table!");
                 }
             }
         };
@@ -101,8 +105,8 @@ public class PeriodDataTable {
         initializeHeadings();
     }
 
-    public void addDependant(PeriodDataTable pdt) {
-        dependants.add(pdt);
+    public void addDependent(Refreshable refreshable) {
+        dependants.add(refreshable);
     }
 
     public void refreshColumnHeadings() {
@@ -119,7 +123,7 @@ public class PeriodDataTable {
     public void refresh() {
         table.refresh();
         refreshColumnHeadings();
-        for (PeriodDataTable d : dependants) {
+        for (Refreshable d : dependants) {
             d.refresh();
         }
     }

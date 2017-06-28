@@ -1,20 +1,19 @@
 package fi.niwic.dcf.ui.table;
 
-import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.DCFCalculation;
 import fi.niwic.dcf.ui.vm.FreeCashFlowCalculationViewModel;
 import fi.niwic.dcf.ui.vm.InvestedCapitalViewModel;
-import java.util.Optional;
+import javafx.scene.control.Label;
 
 public class OutputDataTables extends DataTablesAbstract {
 
-    public OutputDataTables(InputDataTables inputDataTables, DCFCalculation dcf) {
-        PeriodDataTable investedCapitalTable = new PeriodDataTable(new InvestedCapitalViewModel());
-        inputDataTables.balanceSheetTable.addDependant(investedCapitalTable);
+    public OutputDataTables(InputDataTables inputDataTables, DCFCalculation dcf, Label errorLabel) {
+        PeriodDataTable investedCapitalTable = new PeriodDataTable(new InvestedCapitalViewModel(), errorLabel);
+        inputDataTables.balanceSheetTable.addDependent(investedCapitalTable);
 
-        PeriodDataTable freeCashFlowTable = new PeriodDataTable(new FreeCashFlowCalculationViewModel(dcf));
-        inputDataTables.balanceSheetTable.addDependant(freeCashFlowTable);
-        inputDataTables.incomeStatementTable.addDependant(freeCashFlowTable);
+        PeriodDataTable freeCashFlowTable = new PeriodDataTable(new FreeCashFlowCalculationViewModel(dcf), errorLabel);
+        inputDataTables.balanceSheetTable.addDependent(freeCashFlowTable);
+        inputDataTables.incomeStatementTable.addDependent(freeCashFlowTable);
         
         tables = new PeriodDataTable[] {
             investedCapitalTable, freeCashFlowTable

@@ -8,6 +8,7 @@ import fi.niwic.dcf.tool.FinancialStatementImpl;
 import fi.niwic.dcf.tool.PeriodImpl;
 import fi.niwic.dcf.ui.table.InputDataTables;
 import fi.niwic.dcf.ui.table.OutputDataTables;
+import fi.niwic.dcf.ui.vm.Refreshable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -26,7 +27,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class MainScene {
+public class MainScene implements Refreshable {
 
     private DCFCalculation calculation;
     
@@ -38,11 +39,15 @@ public class MainScene {
     private VBox outputDataArea;
     private HBox dataArea;
     private Stage stage;
+    private Label errorLabel;
     private Label companyNameLabel;
+    private Label marketValue;
+    private Label marketValuePerShare;
     
     public MainScene(Stage stage, DCFCalculation calculation) {
         this.stage = stage;
         this.calculation = calculation;
+        createErrorLabel();
         initializeTables();
         initializeLayout();
     }
@@ -77,7 +82,10 @@ public class MainScene {
         
         hbox.getChildren().addAll(
                 createInput("Cost of equity:", this::updateCostOfEquity),
-                createInput("Cost of debt:", this::updateCostOfDebt)
+                createInput("Cost of debt:", this::updateCostOfDebt),
+                createInput("Number of shares:", this::updateNumberOfShares),
+                createMarketValueIndicator(),
+                createMarketValuePerShareIndicator()
         );
         
         return hbox;
@@ -98,8 +106,9 @@ public class MainScene {
         try {
             Double value = Double.parseDouble(newValue);
             calculation.getCostOfCapital().setCostOfOwnCapital(value);
+            refresh();
         } catch (NumberFormatException e) {
-            // TODO
+            errorLabel.setText("Cost of equity is invalid!");
         }
     }
     
@@ -107,8 +116,19 @@ public class MainScene {
         try {
             Double value = Double.parseDouble(newValue);
             calculation.getCostOfCapital().setCostOfBorrowedCapital(value);
+            refresh();
         } catch (NumberFormatException e) {
-            // TODO
+            errorLabel.setText("Cost of debt is invalid!");
+        }
+    }
+    
+    private void updateNumberOfShares(ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+        try {
+            Long value = Long.parseLong(newValue);
+            calculation.setNumberOfShares(value);
+            refresh();
+        } catch (NumberFormatException e) {
+            errorLabel.setText("Number of shares is invalid!");
         }
     }
     
@@ -123,8 +143,8 @@ public class MainScene {
     }
     
     private void initializeTables() {
-        inputDataTables = new InputDataTables();
-        outputDataTables = new OutputDataTables(inputDataTables, calculation);
+        inputDataTables = new InputDataTables(this, errorLabel);
+        outputDataTables = new OutputDataTables(inputDataTables, calculation, errorLabel);
     }
     
     private HBox createMenuBar() {
@@ -135,22 +155,51 @@ public class MainScene {
         
         hbox.getChildren().addAll(
                 createCompanyNameLabel(),
-                createAddYearButton()
+                createAddYearButton(),
+                errorLabel
         );
         
         return hbox;
     }
     
     private Label createCompanyNameLabel() {
-        companyNameLabel = new Label();
+        companyNameLabel = createBoldLabel();
+        return companyNameLabel;
+    }
+    
+    private Label createErrorLabel() {
+        errorLabel = new Label();
+        return errorLabel;
+    }
+    
+    public VBox createMarketValueIndicator() {
+        marketValue = createBoldLabel();
+        return createOutput("Market value:", marketValue);
+    }
+    
+    public VBox createMarketValuePerShareIndicator() {
+        marketValuePerShare = createBoldLabel();
+        return createOutput("Per share:", marketValuePerShare);
+    }
+    
+    public VBox createOutput(String text, Label output) {
+        Label label = new Label(text);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(label, output);
+        
+        return vbox;
+    }
+    
+    public Label createBoldLabel() {
+        Label label = new Label();
         Font font = Font.font(
                 Font.getDefault().getFamily(),
                 FontWeight.BOLD,
                 Font.getDefault().getSize() + 5
         );
-        companyNameLabel.setFont(font);
+        label.setFont(font);
         
-        return companyNameLabel;
+        return label;
     }
     
     private Button createAddYearButton() {
@@ -170,8 +219,13 @@ public class MainScene {
             inputDataTables.addPeriod(newPeriod, -1);
             outputDataTables.addPeriod(newPeriod, -1);
         } catch (InvalidPastPeriodException ex) {
-            /* should be impossible */
+            errorLabel.setText("An invalid period has been added, please restart!");
         }
+    }
+    
+    public void setMarketValue() {
+        calculation.calculateValuation().ifPresent(value -> marketValue.setText(value.toString()));
+        calculation.calculateValuationPerShare().ifPresent(value -> marketValuePerShare.setText(value.toString()));
     }
     
     public void resetContent() {
@@ -200,6 +254,12 @@ public class MainScene {
             inputDataTables.addPeriod(p);
             outputDataTables.addPeriod(p);
         });
+    }
+    
+    public void refresh() {
+        errorLabel.setText("");
+        outputDataTables.refresh();
+        setMarketValue();
     }
         
     public Scene scene() {

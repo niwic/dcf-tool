@@ -79,6 +79,15 @@ public class DCFCalculationImpl implements DCFCalculation {
     }
 
     @Override
+    public Optional<Double> calculateValuationPerShare() {
+        return getNumberOfShares().flatMap(this::calculateValuationPerShare);
+    }
+    
+    private Optional<Double> calculateValuationPerShare(long shares) {
+        return calculateValuation().map(value -> (double) value / shares);
+    }
+    
+    @Override
     public Optional<Long> calculateValuation() {
         Optional<Period> presentValuePeriod = presentValuePeriod();
         Optional<Period> currentPeriod = perpetualPeriod;

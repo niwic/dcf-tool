@@ -1,8 +1,9 @@
 package fi.niwic.dcf.ui.table;
 
 import fi.niwic.dcf.api.Period;
+import fi.niwic.dcf.ui.vm.Refreshable;
 
-public abstract class DataTablesAbstract {
+public abstract class DataTablesAbstract implements Refreshable {
 
     protected PeriodDataTable[] tables;
     
@@ -17,6 +18,12 @@ public abstract class DataTablesAbstract {
     public void addPeriod(Period period, int offset) {
         for (PeriodDataTable table : tables) {
             table.addPeriod(period, offset);
+            table.refresh();
+        }
+    }
+    
+    public void refresh() {
+        for (PeriodDataTable table : tables) {
             table.refresh();
         }
     }

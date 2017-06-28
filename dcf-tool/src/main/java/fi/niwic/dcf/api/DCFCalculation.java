@@ -72,9 +72,15 @@ public interface DCFCalculation {
     public Optional<Long> getNumberOfShares();
 
     /**
+     * Palautta yrityksen arvon
+     * @return yrityksen arvo
+     */
+    public Optional<Long> calculateValuation();
+    
+    /**
      * Palautta yrityksen arvon osaketta kohti.
      * @return yrityksen arvo osaketta kohti
      */
-    public Optional<Long> calculateValuation();
+    public Optional<Double> calculateValuationPerShare();
 
 }
