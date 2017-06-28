@@ -7,6 +7,10 @@ public class InvestedCapitalImpl implements InvestedCapital {
 
     private BalanceSheet bs;
 
+    /**
+     * Luo uuden laskelman sijoitetusta pääomasta.
+     * @param balanceSheet tase josta lasketaan
+     */
     public InvestedCapitalImpl(BalanceSheet balanceSheet) {
         bs = balanceSheet;
     }

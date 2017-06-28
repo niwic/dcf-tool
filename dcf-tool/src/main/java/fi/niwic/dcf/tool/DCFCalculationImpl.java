@@ -15,6 +15,10 @@ public class DCFCalculationImpl implements DCFCalculation {
     private Optional<Period> perpetualPeriod;
     private Optional<Long> numberOfShares;
 
+    /**
+     * Luo uusi diskontattu kassavirta-analyysi kyseisellä pääomakustannuslaskelmalla.
+     * @param costOfCapital pääomakustannuslakelma
+     */
     public DCFCalculationImpl(CostOfCapital costOfCapital) {
         this.perpetualPeriod = Optional.empty();
         this.numberOfShares = Optional.empty();

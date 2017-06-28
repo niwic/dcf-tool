@@ -10,6 +10,12 @@ public class PeriodView {
     private Function<Period, Long> getter;
     private BiConsumer<Period, Long> setter;
     
+    /**
+     * Näkymä tietyn jakson tiettyyn arvoon.
+     * @param header arvon nimike
+     * @param getter funktio jolla arvo haetaan
+     * @param setter funktio jolla arvo asetetaan
+     */
     public PeriodView(String header, Function<Period, Long> getter, BiConsumer<Period, Long> setter) {
         this.header = header;
         this.getter = getter;

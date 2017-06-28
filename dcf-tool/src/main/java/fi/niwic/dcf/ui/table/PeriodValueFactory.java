@@ -11,10 +11,18 @@ public class PeriodValueFactory implements Callback<TableColumn.CellDataFeatures
 
     private Period period;
     
+    /**
+     * Luo uuden taulukon arvon päivittäjän.
+     * @param period jakso
+     */
     public PeriodValueFactory(Period period) {
         this.period = period;
     }
     
+    /**
+     * Palauttaa tämän arvotehtaan jakson.
+     * @return jakso
+     */
     public Period getPeriod() {
         return period;
     }

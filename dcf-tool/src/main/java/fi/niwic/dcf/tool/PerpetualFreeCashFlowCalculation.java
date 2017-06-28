@@ -7,6 +7,10 @@ import java.util.Optional;
 
 public class PerpetualFreeCashFlowCalculation extends FreeCashFlowCalculationImpl {
 
+    /**
+     * Luo uuden jatkuvan kauden analyysin.
+     * @param period jakso joka on jatkuva
+     */
     public PerpetualFreeCashFlowCalculation(Period period) {
         super(period);
     }
@@ -16,15 +20,15 @@ public class PerpetualFreeCashFlowCalculation extends FreeCashFlowCalculationImp
         return period.getPastPeriod().map(pastPeriod -> getDiscountedFreeCashFlow(pastPeriod, costOfCapital));
     }
     
-    public Long getDiscountedFreeCashFlow(Period pastPeriod, CostOfCapital costOfCapital) {
+    private Long getDiscountedFreeCashFlow(Period pastPeriod, CostOfCapital costOfCapital) {
         long perpetualNoplat = getNOPLAT();
         double coc = costOfCapital.getCostOfCapital() / 100;
         double noplatGrowth = getNOPLATGrowth(pastPeriod);
         double investmentGrowth = getInvestmentGrowthRate(pastPeriod);
         
-        double realCashFlow = (((double) perpetualNoplat * (1-investmentGrowth) * (1+noplatGrowth)) / (coc - noplatGrowth));
+        double realCashFlow = (((double) perpetualNoplat * (1 - investmentGrowth) * (1 + noplatGrowth)) / (coc - noplatGrowth));
         
-        return (long) (realCashFlow / Math.pow(1+coc, (double) period.getDiscountYears()));
+        return (long) (realCashFlow / Math.pow(1 + coc, (double) period.getDiscountYears()));
     }
     
     private Double getNOPLATGrowth(Period pastPeriod) {

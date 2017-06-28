@@ -1,30 +1,21 @@
 package fi.niwic.dcf.ui;
 
 import fi.niwic.dcf.ui.table.PeriodDataTable;
-import fi.niwic.dcf.api.DCFCalculation;
-import fi.niwic.dcf.api.InvalidPastPeriodException;
-import fi.niwic.dcf.api.Period;
-import fi.niwic.dcf.tool.FinancialStatementImpl;
-import fi.niwic.dcf.tool.PeriodImpl;
-import fi.niwic.dcf.ui.table.InputDataTables;
-import fi.niwic.dcf.ui.table.OutputDataTables;
+import fi.niwic.dcf.api.*;
+import fi.niwic.dcf.tool.*;
+import fi.niwic.dcf.ui.table.*;
 import fi.niwic.dcf.ui.vm.Refreshable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class MainScene implements Refreshable {
@@ -44,6 +35,11 @@ public class MainScene implements Refreshable {
     private Label marketValue;
     private Label marketValuePerShare;
     
+    /**
+     * Luo päänäkymän käyttöliittymässä.
+     * @param stage minne piirretään
+     * @param calculation mikä manipuloidaan käyttöliittymästä
+     */
     public MainScene(Stage stage, DCFCalculation calculation) {
         this.stage = stage;
         this.calculation = calculation;
@@ -52,20 +48,16 @@ public class MainScene implements Refreshable {
         initializeLayout();
     }
     
-    public void initializeLayout() {
+    private void initializeLayout() {
         layout = new VBox();
-        layout.getChildren().addAll(
-            createMenuBar(), createInputBar(), createDataArea()
-        );
+        layout.getChildren().addAll(createMenuBar(), createInputBar(), createDataArea());
     }
     
     private HBox createDataArea() {
         dataArea = new HBox();
         inputDataArea = new VBox();
         outputDataArea = new VBox();
-        
         dataArea.getChildren().addAll(inputDataArea, outputDataArea);
-        
         createDataAreaTables();
         
         ScrollPane sp = new ScrollPane();
@@ -75,31 +67,17 @@ public class MainScene implements Refreshable {
     }
     
     private HBox createInputBar() {
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(10));
-        hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;-fx-text-fill: #FFFFFF;");
+        HBox hbox = MainSceneComponents.createStyledHBox();
         
         hbox.getChildren().addAll(
-                createInput("Cost of equity:", this::updateCostOfEquity),
-                createInput("Cost of debt:", this::updateCostOfDebt),
-                createInput("Number of shares:", this::updateNumberOfShares),
+                MainSceneComponents.createInput("Cost of equity:", this::updateCostOfEquity),
+                MainSceneComponents.createInput("Cost of debt:", this::updateCostOfDebt),
+                MainSceneComponents.createInput("Number of shares:", this::updateNumberOfShares),
                 createMarketValueIndicator(),
                 createMarketValuePerShareIndicator()
         );
         
         return hbox;
-    }
-    
-    private VBox createInput(String labelText, ChangeListener<? super String> changeListener) {
-        Label label = new Label(labelText);
-        TextField ta = new TextField();
-        ta.textProperty().addListener(changeListener);
-        
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll(label, ta);
-        
-        return vbox;
     }
     
     private void updateCostOfEquity(ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
@@ -136,7 +114,6 @@ public class MainScene implements Refreshable {
         for (PeriodDataTable table: inputDataTables.getList()) {
             inputDataArea.getChildren().add(table.getTable());
         }
-        
         for (PeriodDataTable table: outputDataTables.getList()) {
             outputDataArea.getChildren().add(table.getTable());
         }
@@ -148,22 +125,14 @@ public class MainScene implements Refreshable {
     }
     
     private HBox createMenuBar() {
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(10));
-        hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;-fx-text-fill: #FFFFFF;");
-        
-        hbox.getChildren().addAll(
-                createCompanyNameLabel(),
-                createAddYearButton(),
-                errorLabel
-        );
+        HBox hbox = MainSceneComponents.createStyledHBox();
+        hbox.getChildren().addAll(createCompanyNameLabel(), createAddYearButton(), errorLabel);
         
         return hbox;
     }
     
     private Label createCompanyNameLabel() {
-        companyNameLabel = createBoldLabel();
+        companyNameLabel = MainSceneComponents.createBoldLabel();
         return companyNameLabel;
     }
     
@@ -172,34 +141,14 @@ public class MainScene implements Refreshable {
         return errorLabel;
     }
     
-    public VBox createMarketValueIndicator() {
-        marketValue = createBoldLabel();
-        return createOutput("Market value:", marketValue);
+    private VBox createMarketValueIndicator() {
+        marketValue = MainSceneComponents.createBoldLabel();
+        return MainSceneComponents.createOutput("Market value:", marketValue);
     }
     
-    public VBox createMarketValuePerShareIndicator() {
-        marketValuePerShare = createBoldLabel();
-        return createOutput("Per share:", marketValuePerShare);
-    }
-    
-    public VBox createOutput(String text, Label output) {
-        Label label = new Label(text);
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll(label, output);
-        
-        return vbox;
-    }
-    
-    public Label createBoldLabel() {
-        Label label = new Label();
-        Font font = Font.font(
-                Font.getDefault().getFamily(),
-                FontWeight.BOLD,
-                Font.getDefault().getSize() + 5
-        );
-        label.setFont(font);
-        
-        return label;
+    private VBox createMarketValuePerShareIndicator() {
+        marketValuePerShare = MainSceneComponents.createBoldLabel();
+        return MainSceneComponents.createOutput("Per share:", marketValuePerShare);
     }
     
     private Button createAddYearButton() {
@@ -222,17 +171,17 @@ public class MainScene implements Refreshable {
         }
     }
     
-    public void setMarketValue() {
+    private void setMarketValue() {
         calculation.calculateValuation().ifPresent(value -> marketValue.setText(value.toString()));
         calculation.calculateValuationPerShare().ifPresent(value -> marketValuePerShare.setText(value.toString()));
     }
     
-    public void resetContent() {
+    private void resetContent() {
         resetPeriods();
         companyNameLabel.setText(calculation.getCompanyName());
     }
     
-    public void resetPeriods() {
+    private void resetPeriods() {
         inputDataTables.clear();
         outputDataTables.clear();
         
@@ -255,12 +204,19 @@ public class MainScene implements Refreshable {
         });
     }
     
+    /**
+     * Päivittää virhelaatikon, tulostaulukot, ja tulosarvot.
+     */
     public void refresh() {
         errorLabel.setText("");
         outputDataTables.refresh();
         setMarketValue();
     }
-        
+    
+    /**
+     * Palauttaa käyttöliittymän näkymän.
+     * @return näkymä
+     */
     public Scene scene() {
         resetContent();
         return new Scene(layout);

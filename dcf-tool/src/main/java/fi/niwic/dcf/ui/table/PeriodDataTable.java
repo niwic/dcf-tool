@@ -20,6 +20,11 @@ public class PeriodDataTable implements Refreshable {
     private TableView table;
     private Label errorLabel;
 
+    /**
+     * Luo uuden taulukon annetulle jakson näkymä-mallille.
+     * @param viewModel näkymämalli
+     * @param errorLabel virheet kirjoitetaan tähän
+     */
     public PeriodDataTable(PeriodViewModel viewModel, Label errorLabel) {
         createTable();
         dependants = new ArrayList();
@@ -92,24 +97,40 @@ public class PeriodDataTable implements Refreshable {
         return column;
     }
 
+    /**
+     * Palauta taulukko.
+     * @return taulukko
+     */
     public TableView getTable() {
         return table;
     }
 
+    /**
+     * Lisää jakso taulukkoon tiettyyn sarakkeeseen.
+     * @param period jasko
+     * @param offset paikka laskettu viimeisestä sarakkeesta
+     */
     public void addPeriod(Period period, int offset) {
         addPeriodColumn(period, offset);
     }
     
+    /**
+     * Tyhjennä taulukko, ja alusta uudetaan.
+     */
     public void clear() {
         table.getColumns().clear();
         initializeHeadings();
     }
 
+    /**
+     * Lisää päivitettävä. Päivitettävät päivitetään, kun jokin arvo tässä taulukossa muuttuu.
+     * @param refreshable 
+     */
     public void addDependent(Refreshable refreshable) {
         dependants.add(refreshable);
     }
 
-    public void refreshColumnHeadings() {
+    private void refreshColumnHeadings() {
         for (Object c : table.getColumns()) {
             TableColumn col = (TableColumn) c;
             Object cvf = col.getCellValueFactory();
@@ -120,6 +141,9 @@ public class PeriodDataTable implements Refreshable {
         }
     }
     
+    /**
+     * Päivitä taulukon tiedot, ja kaikki päivitettävät.
+     */
     public void refresh() {
         table.refresh();
         refreshColumnHeadings();

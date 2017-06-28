@@ -7,6 +7,12 @@ import javafx.scene.control.Label;
 
 public class OutputDataTables extends DataTablesAbstract {
 
+    /**
+     * Alustaa laskelmataulukot.
+     * @param inputDataTables syöttötaulukot
+     * @param dcf laskelma
+     * @param errorLabel virheet kirjoitetaan tähän
+     */
     public OutputDataTables(InputDataTables inputDataTables, DCFCalculation dcf, Label errorLabel) {
         PeriodDataTable investedCapitalTable = new PeriodDataTable(new InvestedCapitalViewModel(), errorLabel);
         inputDataTables.balanceSheetTable.addDependent(investedCapitalTable);

@@ -2,7 +2,6 @@ package fi.niwic.dcf.ui;
 
 import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.DCFCalculation;
-import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.Period;
 import fi.niwic.dcf.tool.DCFCalculationImpl;
 import fi.niwic.dcf.tool.FinancialStatementImpl;
@@ -21,6 +20,11 @@ public class UI {
     
     private DCFCalculation calculation;
     
+    /**
+     * Luo uuden käyttöliittymän ja laskelman joka annetaan käyttöliittymälle.
+     * @param primaryStage javafxn pääpiirtoalue
+     * @throws Exception 
+     */
     public UI(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         primaryStage.setTitle(title);
@@ -35,6 +39,9 @@ public class UI {
         startScene = new StartScene(primaryStage, mainScene, calculation);
     }
     
+    /**
+     * Avaa käyttöliittymän ensimmäisen ruudun.
+     */
     public void render() {
         primaryStage.setScene(startScene.scene());
         primaryStage.show();

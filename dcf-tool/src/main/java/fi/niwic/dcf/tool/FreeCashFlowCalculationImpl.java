@@ -12,6 +12,10 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
 
     protected Period period;
 
+    /**
+     * Luo uuden kassavirta-analyysin jaksolle.
+     * @param period jakso joka analysoidaan
+     */
     public FreeCashFlowCalculationImpl(Period period) {
         this.period = period;
     }
@@ -30,7 +34,6 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     public long getInterestCostTaxEffect() {
         long interestCosts = getCurrentIncomeStatement().getInterestCosts();
         double realizedTaxRate = getRealizedTaxRate();
-
         return Math.round(realizedTaxRate * interestCosts);
     }
 
@@ -38,7 +41,6 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     public long getInterestIncomeTaxEffect() {
         long interestIncome = getCurrentIncomeStatement().getInterestIncome();
         double realizedTaxRate = getRealizedTaxRate();
-
         return Math.round(realizedTaxRate * interestIncome);
     }
 
@@ -46,7 +48,6 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     public long getOtherPostsTaxEffect() {
         long otherIncomeAndCosts = getCurrentIncomeStatement().getOtherIncomeAndCosts();
         double realizedTaxRate = getRealizedTaxRate();
-
         return Math.round(realizedTaxRate * otherIncomeAndCosts);
     }
 
@@ -58,13 +59,8 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
             Math.negateExact(getInterestCostTaxEffect()),
             getInterestIncomeTaxEffect()
         };
-
-        long sum = 0;
-        for (long item : items) {
-            sum = Math.addExact(sum, item);
-        }
-
-        return sum;
+        
+        return Sum.ofItems(items);
     }
 
     @Override
@@ -192,7 +188,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
     
     private long getDiscountedFreeCashFlow(BalanceSheet previousBS, CostOfCapital coc) {
         long fcf = getFreeCashFlow(previousBS);
-        double discountedFcf = fcf / Math.pow(1 + coc.getCostOfCapital()/100, period.getDiscountYears());
+        double discountedFcf = fcf / Math.pow(1 + coc.getCostOfCapital() / 100, period.getDiscountYears());
         
         return (long) discountedFcf;
     }

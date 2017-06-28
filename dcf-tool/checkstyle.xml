@@ -72,9 +72,11 @@
             <property name='allowEmptyMethods' value='true' />
         </module>
         
+		<!--
         <module name="MethodLength">
             <property name="max" value="15"/>
         </module>
+		-->
         
         <module name="JavadocMethod">
             <property name="scope" value="public"/>

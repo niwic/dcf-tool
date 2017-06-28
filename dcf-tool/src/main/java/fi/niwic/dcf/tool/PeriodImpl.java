@@ -15,6 +15,12 @@ public class PeriodImpl implements Period {
     private FinancialStatement financialStatement;
     private Optional<Period> pastPeriod;
 
+    /**
+     * Luo uuden tilikauden.
+     * @param year tilikauden vuosi
+     * @param isPrediction true jos kyseessa arvio
+     * @param fs tilikauden tilinpäätös
+     */
     public PeriodImpl(int year, boolean isPrediction, FinancialStatement fs) {
         this.year = year;
         this.isPrediction = isPrediction;

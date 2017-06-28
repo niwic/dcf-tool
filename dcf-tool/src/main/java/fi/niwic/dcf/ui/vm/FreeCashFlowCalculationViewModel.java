@@ -9,6 +9,10 @@ public class FreeCashFlowCalculationViewModel implements PeriodViewModel {
 
     private DCFCalculation dcf;
     
+    /**
+     * Näkymämalli analyysille.
+     * @param dcf laskelma
+     */
     public FreeCashFlowCalculationViewModel(DCFCalculation dcf) {
         this.dcf = dcf;
     }

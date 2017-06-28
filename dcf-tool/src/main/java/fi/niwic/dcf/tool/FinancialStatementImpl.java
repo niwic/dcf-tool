@@ -9,6 +9,11 @@ public class FinancialStatementImpl implements FinancialStatement {
     private IncomeStatement incomeStatement;
     private BalanceSheet balanceSheet;
 
+    /**
+     * Luo uusi tilinpäätös annetuilla tuloslaskelmalla ja taseella.
+     * @param incomeStatement tuloslaskelma
+     * @param balanceSheet tase
+     */
     public FinancialStatementImpl(IncomeStatement incomeStatement,
             BalanceSheet balanceSheet) {
 
@@ -16,6 +21,9 @@ public class FinancialStatementImpl implements FinancialStatement {
         this.balanceSheet = balanceSheet;
     }
 
+    /**
+     * Luo uusi tilnpäätös ja samalla uuden tuloslaskelman ja taseen.
+     */
     public FinancialStatementImpl() {
         this.incomeStatement = new IncomeStatementImpl();
         this.balanceSheet = new BalanceSheetImpl();

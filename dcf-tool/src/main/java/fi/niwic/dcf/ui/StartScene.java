@@ -30,6 +30,12 @@ public class StartScene {
     private TextField startYear;
     private Label errorLabel;
     
+    /**
+     * Luo uuden alkunäkymän jossa annetaan yrityksen nimi ja aloitus-vuosi.
+     * @param stage minne piiretään
+     * @param mainScene mistä jatketaan
+     * @param calculation mikä manipuloidaan
+     */
     public StartScene(Stage stage, MainScene mainScene, DCFCalculation calculation) {
         this.calculation = calculation;
         this.mainScene = mainScene;
@@ -97,6 +103,10 @@ public class StartScene {
         return input;
     }
     
+    /**
+     * Palauttaa käyttöliitymän näkymän.
+     * @return näkymä
+     */
     public Scene scene() {
         return new Scene(grid, 350, 200);
     }

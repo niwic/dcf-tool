@@ -10,6 +10,11 @@ public class InputDataTables extends DataTablesAbstract {
     protected PeriodDataTable balanceSheetTable;
     protected PeriodDataTable incomeStatementTable;
     
+    /**
+     * Alustaa syöttötaulukot.
+     * @param mainScene päänäkymä
+     * @param errorLabel virheet kirjoitetaan tähän
+     */
     public InputDataTables(MainScene mainScene, Label errorLabel) {
         balanceSheetTable = new PeriodDataTable(new BalanceSheetViewModel(), errorLabel);
         incomeStatementTable = new PeriodDataTable(new IncomeStatementViewModel(), errorLabel);

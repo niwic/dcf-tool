@@ -44,6 +44,7 @@ public interface DCFCalculation {
     /**
      * Asettaa viimeisen jakson.
      * @param period viimeinen jakso
+     * @throws InvalidPastPeriodException 
      */
     public void setPerpetualPeriod(Period period) throws InvalidPastPeriodException;
 
@@ -72,7 +73,7 @@ public interface DCFCalculation {
     public Optional<Long> getNumberOfShares();
 
     /**
-     * Palautta yrityksen arvon
+     * Palautta yrityksen arvon.
      * @return yrityksen arvo
      */
     public Optional<Long> calculateValuation();

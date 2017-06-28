@@ -7,6 +7,10 @@ import fi.niwic.dcf.api.Period;
 
 public class PerpetualPeriod extends PeriodImpl {
 
+    /**
+     * Luo uuden jatkuvan kauden. Jatkuva kausi on aina analyysin viimeinen kausi.
+     * @param fs jatkuvan kauden tilinpäätös
+     */
     public PerpetualPeriod(FinancialStatement fs) {
         super(9999, true, fs);
     }
