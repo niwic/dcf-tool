@@ -26,8 +26,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         isPast = new IncomeStatementImpl();
         fsPast = new FinancialStatementImpl(isPast, bsPast);
         
-        periodPast = new PeriodImpl(period.getYear()-1, true);
-        periodPast.setCurrentFinancialStatement(fsPast);
+        periodPast = new PeriodImpl(period.getYear()-1, true, fsPast);
         period.setPastPeriod(periodPast);
     }
     
@@ -52,7 +51,7 @@ public class FreeCashFlowCalculationImplWithPastTest
         bs.setFixedAssets(200);
         is.setDepreciation(25);
         
-        assertEquals(-125, (long) fcfCalculation.getGrossInvestments().get());
+        assertEquals(125, (long) fcfCalculation.getGrossInvestments().get());
     }
     
     @Test
@@ -109,6 +108,21 @@ public class FreeCashFlowCalculationImplWithPastTest
         coc.setCostOfOwnCapital(10.0);
         
         assertEquals(90, (long) fcfCalculation.getDiscountedFreeCashFlow(coc).get());
+    }
+    
+    @Test
+    public void checkGetDiscountedFreeCashFlowPeriod8() {
+        is.setTurnover(100);
+        bs.setBoundEquity(100);
+        bs.setLongTermLiabilities(100);
+        
+        CostOfCapital coc = new WACC(bs.getInvestedCapital());
+        coc.setCostOfBorrowedCapital(10.0);
+        coc.setCostOfOwnCapital(10.0);
+        
+        period.setDiscountYears(8);
+        
+        assertEquals(46, (long) fcfCalculation.getDiscountedFreeCashFlow(coc).get());
     }
     
 }

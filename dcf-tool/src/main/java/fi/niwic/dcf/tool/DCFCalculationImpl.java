@@ -10,6 +10,7 @@ public class DCFCalculationImpl implements DCFCalculation {
 
     private String companyName;
     private Period period;
+    private Period firstPeriod;
     private CostOfCapital costOfCapital;
     private Optional<Period> perpetualPeriod;
     private Optional<Long> numberOfShares;
@@ -33,6 +34,7 @@ public class DCFCalculationImpl implements DCFCalculation {
     @Override
     public void addPeriod(Period period) throws InvalidPastPeriodException {
         if (this.period == null) {
+            this.firstPeriod = period;
             this.period = period;
         } else {
             period.setPastPeriod(this.period);
@@ -89,35 +91,24 @@ public class DCFCalculationImpl implements DCFCalculation {
     
     @Override
     public Optional<Long> calculateValuation() {
-        Optional<Period> presentValuePeriod = presentValuePeriod();
         Optional<Period> currentPeriod = perpetualPeriod;
 
         long valuation = 0;
-        while (currentPeriod.isPresent() && presentValuePeriod.isPresent()) {
-            valuation += calculatePeriodDiscountedCashFlow(currentPeriod.get(), presentValuePeriod.get()).orElse(0L);
+        while (currentPeriod.isPresent()) {
+            valuation += calculatePeriodDiscountedCashFlow(currentPeriod.get()).orElse(0L);
             currentPeriod = currentPeriod.flatMap(p -> p.getPastPeriod());
         }
 
-        return Optional.of(valuation);
+        long finAss = firstPeriod.getCurrentFinancialStatement().getBalanceSheet().getInterestBearingFinancialAssets();
+        long shortTermLiab = firstPeriod.getCurrentFinancialStatement().getBalanceSheet().getShortTermInterestBearingLiabilities();
+        long longTermLiab = firstPeriod.getCurrentFinancialStatement().getBalanceSheet().getLongTermLiabilities();
+        
+        return Optional.of(valuation + finAss - shortTermLiab - longTermLiab);
     }
 
-    private Optional<Period> presentValuePeriod() {
-        Optional<Period> currentPeriod = Optional.of(period);
-        while (currentPeriod.isPresent()) {
-            if (!currentPeriod.get().isPrediction()) {
-                return currentPeriod;
-            }
-
-            currentPeriod = currentPeriod.get().getPastPeriod();
-        }
-
-        return Optional.empty();
-    }
-
-    private Optional<Long> calculatePeriodDiscountedCashFlow(Period period, Period pvPeriod) {
-        long years = period.getYear() - pvPeriod.getYear();
+    private Optional<Long> calculatePeriodDiscountedCashFlow(Period period) {
         Optional<Long> result = period.getFreeCashFlowCalculation().getDiscountedFreeCashFlow(costOfCapital);
-
+        
         return result;
     }
 

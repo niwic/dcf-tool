@@ -1,13 +1,14 @@
 package fi.niwic.dcf.tool;
 
+import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 
 public class PerpetualPeriod extends PeriodImpl {
 
-    public PerpetualPeriod() {
-        super(9999, true);
+    public PerpetualPeriod(FinancialStatement fs) {
+        super(9999, true, fs);
     }
     
     @Override

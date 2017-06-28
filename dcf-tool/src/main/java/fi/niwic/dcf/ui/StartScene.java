@@ -65,8 +65,7 @@ public class StartScene {
         try {
             int year = Integer.parseInt(startYear.getText());
             calculation.setCompanyName(companyName.getText());
-            Period period = new PeriodImpl(year, false);
-            period.setCurrentFinancialStatement(new FinancialStatementImpl());
+            Period period = new PeriodImpl(year, false, new FinancialStatementImpl());
             calculation.addPeriod(period);
             stage.setScene(mainScene.scene());
             stage.sizeToScene();

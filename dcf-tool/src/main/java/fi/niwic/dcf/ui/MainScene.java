@@ -211,8 +211,7 @@ public class MainScene implements Refreshable {
     
     private void addYear(ActionEvent e) {
         Integer nextYear = calculation.getHeadPeriod().getYear() + 1;
-        Period newPeriod = new PeriodImpl(nextYear, true);
-        newPeriod.setCurrentFinancialStatement(new FinancialStatementImpl());
+        Period newPeriod = new PeriodImpl(nextYear, true, new FinancialStatementImpl());
         
         try {
             calculation.addPeriod(newPeriod);

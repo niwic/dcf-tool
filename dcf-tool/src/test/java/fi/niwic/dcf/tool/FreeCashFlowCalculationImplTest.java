@@ -1,5 +1,6 @@
 package fi.niwic.dcf.tool;
 
+import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
@@ -114,8 +115,7 @@ public class FreeCashFlowCalculationImplTest
     
     @Test
     public void checkGetNetWorkingCapitalDeltaZero() throws InvalidPastPeriodException {
-        Period past = new PeriodImpl(period.getYear()-1, false);
-        past.setCurrentFinancialStatement(fs);
+        Period past = new PeriodImpl(period.getYear()-1, false, fs);
         period.setPastPeriod(past);
         
         assertEquals(0, (long) fcfCalculation.getNetWorkingCapitalDelta().get());

@@ -11,7 +11,7 @@ public class PerpetualPeriodTest {
 
     @Before
     public void before() {
-        period = new PerpetualPeriod();
+        period = new PerpetualPeriod(null);
     }
     
     @Test

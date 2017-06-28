@@ -17,7 +17,7 @@ public class PeriodImplTest {
 
     @Before
     public void before() {
-        period = new PeriodImpl(2017, false);
+        period = new PeriodImpl(2017, false, null);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class PeriodImplTest {
 
     @Test
     public void checkValidPastPeriod() throws InvalidPastPeriodException {
-        Period pastPeriod = new PeriodImpl(period.getYear() - 1, false);
+        Period pastPeriod = new PeriodImpl(period.getYear() - 1, false, null);
         period.setPastPeriod(pastPeriod);
 
         assertEquals(Optional.of(pastPeriod), period.getPastPeriod());
@@ -41,19 +41,19 @@ public class PeriodImplTest {
 
     @Test(expected = InvalidPastPeriodException.class)
     public void checkInvalidPastPeriodSame() throws InvalidPastPeriodException {
-        Period pastPeriod = new PeriodImpl(period.getYear(), false);
+        Period pastPeriod = new PeriodImpl(period.getYear(), false, null);
         period.setPastPeriod(pastPeriod);
     }
 
     @Test(expected = InvalidPastPeriodException.class)
     public void checkInvalidPastPeriodPlusOne() throws InvalidPastPeriodException {
-        Period pastPeriod = new PeriodImpl(period.getYear() + 1, false);
+        Period pastPeriod = new PeriodImpl(period.getYear() + 1, false, null);
         period.setPastPeriod(pastPeriod);
     }
 
     @Test(expected = InvalidPastPeriodException.class)
     public void checkInvalidPastPeriodMinusTwo() throws InvalidPastPeriodException {
-        Period pastPeriod = new PeriodImpl(period.getYear() - 2, false);
+        Period pastPeriod = new PeriodImpl(period.getYear() - 2, false, null);
         period.setPastPeriod(pastPeriod);
     }
 

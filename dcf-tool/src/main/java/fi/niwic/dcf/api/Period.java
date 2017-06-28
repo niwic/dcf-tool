@@ -13,7 +13,6 @@ public interface Period {
     
 	public boolean isPrediction();
 	
-	public void setCurrentFinancialStatement(FinancialStatement financialStatement);
 	public FinancialStatement getCurrentFinancialStatement();
 	
 	public void setPastPeriod(Period period) throws InvalidPastPeriodException;

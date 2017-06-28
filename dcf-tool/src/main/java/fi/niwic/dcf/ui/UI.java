@@ -25,9 +25,7 @@ public class UI {
         this.primaryStage = primaryStage;
         primaryStage.setTitle(title);
         
-        Period pPeriod = new PerpetualPeriod();
-        FinancialStatement fs = new FinancialStatementImpl();
-        pPeriod.setCurrentFinancialStatement(fs);
+        Period pPeriod = new PerpetualPeriod(new FinancialStatementImpl());
         CostOfCapital coc = new WACC(pPeriod.getCurrentFinancialStatement().getBalanceSheet().getInvestedCapital());
         
         calculation = new DCFCalculationImpl(coc);

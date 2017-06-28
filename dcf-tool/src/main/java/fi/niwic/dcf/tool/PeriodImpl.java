@@ -1,6 +1,5 @@
 package fi.niwic.dcf.tool;
 
-import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.InvalidPastPeriodException;
@@ -16,10 +15,11 @@ public class PeriodImpl implements Period {
     private FinancialStatement financialStatement;
     private Optional<Period> pastPeriod;
 
-    public PeriodImpl(int year, boolean isPrediction) {
+    public PeriodImpl(int year, boolean isPrediction, FinancialStatement fs) {
         this.year = year;
         this.isPrediction = isPrediction;
         this.pastPeriod = Optional.empty();
+        this.financialStatement = fs;
     }
 
     @Override
@@ -40,11 +40,6 @@ public class PeriodImpl implements Period {
     @Override
     public boolean isPrediction() {
         return isPrediction;
-    }
-
-    @Override
-    public void setCurrentFinancialStatement(FinancialStatement financialStatement) {
-        this.financialStatement = financialStatement;
     }
 
     @Override

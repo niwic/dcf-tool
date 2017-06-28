@@ -5,7 +5,6 @@ import fi.niwic.dcf.api.CostOfCapital;
 import fi.niwic.dcf.api.FinancialStatement;
 import fi.niwic.dcf.api.FreeCashFlowCalculation;
 import fi.niwic.dcf.api.IncomeStatement;
-import fi.niwic.dcf.api.InvestedCapital;
 import fi.niwic.dcf.api.Period;
 import java.util.Optional;
 
@@ -87,7 +86,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         return result;
     }
 
-    private long getNetWorkingCapitalDelta(BalanceSheet previousBS) {
+    protected long getNetWorkingCapitalDelta(BalanceSheet previousBS) {
 
         long previousNOC = previousBS.getInvestedCapital().getNetOperatingCapital();
         long currentNOC = getCurrentBalanceSheet().getInvestedCapital().getNetOperatingCapital();
@@ -105,7 +104,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         return result;
     }
 
-    private long getGrossInvestments(BalanceSheet previousBS) {
+    protected long getGrossInvestments(BalanceSheet previousBS) {
 
         long previousLT = previousBS.getInvestedCapital().getLongTermAssets();
         long currentLT = getCurrentBalanceSheet().getInvestedCapital().getLongTermAssets();
@@ -117,7 +116,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
             Math.negateExact(currentDepr)
         };
 
-        return Sum.ofItems(items);
+        return Math.negateExact(Sum.ofItems(items));
 
     }
 
@@ -134,7 +133,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         long items[] = {
             getGrossCashFlow(),
             getNetWorkingCapitalDelta(previousBS),
-            getGrossInvestments(previousBS)
+            Math.negateExact(getGrossInvestments(previousBS))
         };
 
         return Sum.ofItems(items);
@@ -156,7 +155,7 @@ public class FreeCashFlowCalculationImpl implements FreeCashFlowCalculation {
         return result;
     }
     
-    private long getFreeCashFlow(BalanceSheet previousBS) {
+    protected long getFreeCashFlow(BalanceSheet previousBS) {
         long items[] = {
             getOperatingFreeCashFlow(previousBS),
             getNonOperatingCashFlow()
